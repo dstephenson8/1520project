@@ -11,7 +11,7 @@ def render_template(handler, templatename, templatevalues) :
   
 class MainPage(webapp2.RequestHandler) :
   def get(self) :
-    render_template(self, 'infoform.html', {})
+    render_template(self, 'index.html', {})
     
 
 app = webapp2.WSGIApplication([
