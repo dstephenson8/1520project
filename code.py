@@ -9,24 +9,18 @@ def render_template(handler, templatename, templatevalues) :
   handler.response.out.write(html)
 
   
-class LoginPage(webapp2.RequestHandler) :
-  def get(self) :
-    render_template(self, 'index.html', {})
- 
 class MainPage(webapp2.RequestHandler):
-  def post(self) :
-    user = users.get_current_user()
-    if user:
-            self.response.headers['Content-Type'] = 'text/plain'
-            self.response.write('Hello, ' + user.nickname())
-            #render_template(self, 'infoform.html', {})
-    else:
+    def get(self):
+        # Checks for active Google account session
+        user = users.get_current_user()
+
+        if user:
+            render_template(self, 'infoform.html', {})
+        else:
             self.redirect(users.create_login_url(self.request.uri))
-            #render_template(self, 'index.html', {})
 
 
 
 app = webapp2.WSGIApplication([
-  ('/', LoginPage),
-  ('/infoform', MainPage),
+  ('/', MainPage),
 ], debug = True)
