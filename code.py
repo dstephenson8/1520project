@@ -15,7 +15,7 @@ class MainPage(webapp2.RequestHandler):
         user = users.get_current_user()
 
         if user:
-            render_template(self, 'infoform.html', {})
+            render_template(self, 'calendar.html', {})
         else:
             self.redirect(users.create_login_url(self.request.uri))
 
