@@ -124,11 +124,13 @@ function calendar(curr_month)
 	
 	return true;
 }
+
 function handleClick(elem){
 	var id = elem.id; //get the day and then the month
 	var partsOfStr = id.split(',');
 	window.alert("The month is: " + months[partsOfStr[1]] + "\nThe day is: " + partsOfStr[0]);
 }
+
 function highlight(tag) 
 {
 	tag.style.cursor = "pointer";
