@@ -24,3 +24,4 @@ class MainPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
   ('/', MainPage),
 ], debug = True)
+
