@@ -1,0 +1,112 @@
+
+/* Controls the overall table */
+.cal_calendar
+{
+	border-collapse: collapse;
+	padding: 5px;
+	/*border: 1px solid LightSlateGray;*/
+	table-layout: fixed;
+	text-align: center;
+    width: 75%;
+    margin:auto;
+}
+
+/* Controls the background image */
+body{
+	/* background-image: url("/static/images/calendar_background"); */
+	background-image: url("http://img.wallpaperstock.net:81/air-ballons-path-hills--sky-wallpapers_44232_1920x1200.jpg");
+}
+
+
+/* Controls the title of the calendar */
+#date
+{
+	border: none;
+	color: White;
+	text-align: center;
+	background-color: DarkBlue;
+	font-size: 300%;
+}
+
+/* Controls todays td */
+.today
+{
+	font-size: 250%;
+	font-weight: bold;
+	text-align: left;
+	vertical-align: top;
+	color: DarkBlue;
+	background-color: White;
+	border: 2px solid LightSteelBlue;
+}
+
+/* Controls the table data tags besides for todays tag*/
+
+.cal_days
+{
+	text-align: left;
+	vertical-align: top;
+    border: 2px solid LightSteelBlue;
+    background-color: White;
+    height: 100px;
+	font-size: 200%;
+	font-weight: 600;
+}
+
+/* Controls the weeks headers */
+.cal_weeks
+{
+	border: 2px solid LightSteelBlue;
+    color: White;
+    background-color: DarkBlue;
+	height: 50px;
+	text-align: center;
+	vertical-align: center;
+	font-size: 99%;
+}
+
+/* Controls days for the month after the current month of the calendar */
+.cal_next_month_days
+{
+	text-align: left;
+	vertical-align: top;
+    border: 2px solid LightSteelBlue;
+    background-color: White;
+    height: 100px;
+	font-size: 200%;
+	font-weight: 600;
+	color: #A9A9A9;  /*slightly darker gray than LightGray */
+}
+
+/* Controls days for the month before the current month of the calendar */
+
+.cal_prev_month_days
+{
+	text-align: left;
+	vertical-align: top;
+    border: 2px solid LightSteelBlue;
+    background-color: White;
+    height: 100px;
+	font-size: 200%;
+	font-weight: 600;
+	color: #A9A9A9;  /*slightly darker gray than LightGray */
+}
+
+/* Controls the calendar buttons (previous and next month) */
+
+.button
+{
+	color: White;
+	background-color: DarkBlue;
+	border-radius: 20px;
+	width: 85%;
+	height:85%;
+}
+
+/* Controls the td tag that the buttons are in */
+
+.button_td
+{
+	border: none
+
+}

@@ -19,9 +19,38 @@ class MainPage(webapp2.RequestHandler):
         else:
             self.redirect(users.create_login_url(self.request.uri))
 
+class ProcessForm(webapp2.RequestHandler):
+  def post(self):
+    render_template(self, 'infoform.html', {})
+
+
+class ProcessForm2(webapp2.RequestHandler):
+  def post(self):
+    fname = self.request.get('fname')
+    lname = self.request.get('lname')
+    phonenumber = self.request.get('phonenumber')
+    email = self.request.get('email')
+    prefer_contact = self.request.get('prefer_contact')
+    fname = self.request.get('fname')
+    year = self.request.get('year')
+    availseats = self.request.get('availseats')
+    departcity = self.request.get('departcity')
+    arrivecity = self.request.get('arrivecity')
+    time = self.request.get('time')
+
+   
+    render_template(self, 'day.html',{
+     "fname": fname,
+     "lname": lname
+    # "mynumber2": number2,
+    #"number3": number3
+  })
+
 
 
 app = webapp2.WSGIApplication([
   ('/', MainPage),
+  ('/processform', ProcessForm),
+  ('/processform2', ProcessForm2),
 ], debug = True)
 
