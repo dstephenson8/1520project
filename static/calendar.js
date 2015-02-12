@@ -1,5 +1,8 @@
 function calendar(curr_month)
 {
+	//holds the current month which will be used to go to the previous or next month
+	document.curr_month = curr_month;
+	
 	//create date object
 	var date = new Date();
 	
@@ -34,15 +37,16 @@ function calendar(curr_month)
 	var date_today = months[month]+' '+year;
 	
 	//create table and first row
-	document.write('<table class="cal_calendar"><tbody id="cal_body"><tr>');
+	var text = '';
+	text += ('<table class="cal_calendar"><tbody id="cal_body"><tr>');
 	//create previous month button
-	document.write('<td class="button_td"><button type="submit" class="button" onmouseover="highlight(this);" onclick="prevMonth(this);" id="'+month+'">Previous Month</button></td>');
+	text += ('<td class="button_td"><button type="submit" class="button" onmouseover="highlight(this);" onclick="prevMonth(this);" id="'+month+'">Previous Month</button></td>');
 	//create title for calendar
-	document.write('<th colspan="5" id="date">'+date_today+'</th>');
+	text += ('<th colspan="5" id="date">'+date_today+'</th>');
 	//create next month button
-	document.write('<td class="button_td"><button type="submit" class="button" onmouseover="highlight(this);" onclick="nextMonth(this);" id="'+month+'">Next Month</button></td></tr>');
+	text += ('<td class="button_td"><button type="submit" class="button" onmouseover="highlight(this);" onclick="nextMonth(this);" id="'+month+'">Next Month</button></td></tr>');
 	//create week label headers
-	document.write('<tr class="cal_weeks"><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th></tr><tr>');
+	text += ('<tr class="cal_weeks"><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th></tr><tr>');
 	
 	//will help determine what day (mon, tues...) the 1st of this month will fall on
 	var beginning = date;
@@ -62,7 +66,7 @@ function calendar(curr_month)
 	
 	for(weeks = 0; weeks < 6; weeks++){  //rows for the calendar
 	
-		document.write('<tr>');
+		text += ('<tr>');
 		num = 0; //num is the number of times we added a date from the previous month
 		
 		for(days = 1, numdays = 0; days < 8; days++) //cols for calendar
@@ -72,10 +76,10 @@ function calendar(curr_month)
 			{
 				if(month == 0){
 					
-					document.write('<td class="cal_prev_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+(31-(the_first-1))+','+(11)+'">'+(31-(the_first-1))+'</td>');
+					text += ('<td class="cal_prev_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+(31-(the_first-1))+','+(11)+'">'+(31-(the_first-1))+'</td>');
 				}
 				else{
-					document.write('<td class="cal_prev_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+(days_in_month[month-1]-(the_first-1))+','+(month-1)+'">'+(days_in_month[month-1]-(the_first-1))+'</td>');
+					text += ('<td class="cal_prev_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+(days_in_month[month-1]-(the_first-1))+','+(month-1)+'">'+(days_in_month[month-1]-(the_first-1))+'</td>');
 				}
 				the_first--;
 				num++;
@@ -88,11 +92,11 @@ function calendar(curr_month)
 				if((7*weeks)+days-(the_first_copy) == today && today_month == month) //is this day today?
 				{ 
 					if(weeks == 0){ //if it is still the first week, don't subtract when the day the 1st started
-						document.write('<td class="today" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*weeks)+days-num)+','+(month)+'">'+((7*weeks)+days-num)+'</td>');
+						text += ('<td class="today" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*weeks)+days-num)+','+(month)+'">'+((7*weeks)+days-num)+'</td>');
 					}
 					else{
 						//this day is today, change the class name for CSS
-						document.write('<td class="today" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*weeks)+days-num-the_first_copy)+','+(month)+'">'+((7*weeks)+days-num-the_first_copy)+'</td>');
+						text += ('<td class="today" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*weeks)+days-num-the_first_copy)+','+(month)+'">'+((7*weeks)+days-num-the_first_copy)+'</td>');
 					}
 				}
 				
@@ -100,35 +104,47 @@ function calendar(curr_month)
 				{  //this day is not today, normal CSS name
 				
 					if(weeks == 0){ //if it is still the first week, don't subtract when the day the 1st started
-						document.write('<td class="cal_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*weeks)+days-num)+','+(month)+'">'+((7*weeks)+days-num)+'</td>');
+						text += ('<td class="cal_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*weeks)+days-num)+','+(month)+'">'+((7*weeks)+days-num)+'</td>');
 					}
 					else{
-						document.write('<td class="cal_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*weeks)+days-num-the_first_copy)+','+(month)+'">'+((7*weeks)+days-num-the_first_copy)+'</td>');
+						text += ('<td class="cal_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*weeks)+days-num-the_first_copy)+','+(month)+'">'+((7*weeks)+days-num-the_first_copy)+'</td>');
 					}
+				}
+				if((7*weeks)+days-(the_first_copy) == total){
+					weeks = 6;
 				}
 			}
 			
 			else{ //no more days in this month, start writing for the next month, don't need to worry about num since that only effects the first week
-				document.write('<td class="cal_next_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*next_weeks)+days-numdays)+','+(month+1)+'" >'+((7*next_weeks)+days-numdays)+'</td>');
+				if(month == 11){
+					text += ('<td class="cal_next_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*next_weeks)+days-numdays)+','+(0)+'" >'+((7*next_weeks)+days-numdays)+'</td>');
+				}
+				else{
+					text += ('<td class="cal_next_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*next_weeks)+days-numdays)+','+(month+1)+'" >'+((7*next_weeks)+days-numdays)+'</td>');
+				}
+				
 				if(days == 7){
-					next_weeks++;
+					weeks = 6;
 				}
 			}
 		}
 		
-		document.write('</tr>');
+		text += ('</tr>');
 	
 	}
+	text += ('</tbody></table>');
 	
-	document.write('</tbody></table>');
+	document.getElementById('my-calendar').innerHTML = text;
 	
 	return true;
 }
 
 function handleClick(elem){
-	var id = elem.id; //get the day and then the month
+	/*var id = elem.id; //get the day and then the month
 	var partsOfStr = id.split(',');
-	window.alert("The month is: " + months[partsOfStr[1]] + "\nThe day is: " + partsOfStr[0]);
+	window.alert("The month is: " + months[partsOfStr[1]] + "\nThe day is: " + partsOfStr[0]);*/
+	
+	window.open("list_rides");
 }
 
 function highlight(tag) 
@@ -143,26 +159,14 @@ function unhighlight(tag)
 
 function prevMonth(elem)
 {
-	var id = elem.id;
-	id_int = parseInt(id);
-	id_int--;
-	if(id_int <0){
-		id_int = 11;
-	}
-	//alert(id_int);
-	document.write(calendar(id_int));
+	document.curr_month--;
+	calendar(document.curr_month);
 }
 
 function nextMonth(elem)
 {
-	var id = elem.id;
-	id_int = parseInt(id);
-	id_int++;
-	if(id_int > 11){
-		id_int = 0;
-	}
-	//alert(id_int);
-	document.write(calendar(id_int));
+	document.curr_month++;
+	calendar(document.curr_month);
 }
 
 

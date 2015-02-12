@@ -21,11 +21,12 @@ body{
 /* Controls the title of the calendar */
 #date
 {
-	border: 2px solid LightSteelBlue;
-	color: White;
+	border: none;
+	color: white;
 	text-align: center;
 	background-color: DarkBlue;
 	font-size: 3vw;
+	border-spacing: 50px;
 }
 
 /* Controls todays td */
