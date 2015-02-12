@@ -144,7 +144,11 @@ function handleClick(elem){
 	var partsOfStr = id.split(',');
 	window.alert("The month is: " + months[partsOfStr[1]] + "\nThe day is: " + partsOfStr[0]);*/
 	
-	window.open("list_rides");
+	location.replace("list_rides");
+	/*$ajax({
+		type: "POST",
+		url: "~/code.py",
+		data*/
 }
 
 function highlight(tag) 

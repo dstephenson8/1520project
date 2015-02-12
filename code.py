@@ -45,6 +45,9 @@ class ProcessForm2(webapp2.RequestHandler):
     # "mynumber2": number2,
     #"number3": number3
   })
+  
+  def get(self):
+	render_template(self, 'day.html', {})
 
 
 
@@ -52,5 +55,6 @@ app = webapp2.WSGIApplication([
   ('/', MainPage),
   ('/processform', ProcessForm),
   ('/processform2', ProcessForm2),
+  ('/list_rides', ProcessForm2),
 ], debug = True)
 
