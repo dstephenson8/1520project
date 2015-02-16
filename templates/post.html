@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if user %}
+Hello, {{user.email}}!  Click <a href="{{logout}}">here</a> to log out.
+<br><br>
+<form method="post" action="/savepost">
+
+
+Depature City:<br>
+<input type="text" name="depart"><br><br>
+
+Arrival City:<br>
+<input type="text" name="arrive"><br><br>
+
+Time of Depature :<br>
+<input type="text" name="timeofdepart"><br><br>
+
+Number of available Seats:<br>
+<input type="text" name="seats"><br><br>
+
+Message:<br>
+<textarea rows="8" cols="100" name="text"></textarea><br><br>
+<input type="submit">
+{% else %}
+Click <a href="{{login}}">here</a> to log in.
+{% endif %}
+
+{% endblock %}
