@@ -4,7 +4,9 @@
 {% if user %}
 Hello, {{user.email}}!  Click <a href="{{logout}}">here</a> to log out.
 <br><br>
-<a href="/post">Post a new ride</a>
+<form action="/post">
+	<input type="submit" value="Post a new Ride">
+</form>
 <form action="/">
     <input type="submit" value="Return to Calendar">
 </form>
