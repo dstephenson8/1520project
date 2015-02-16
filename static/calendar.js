@@ -140,15 +140,8 @@ function calendar(curr_month)
 }
 
 function handleClick(elem){
-	/*var id = elem.id; //get the day and then the month
-	var partsOfStr = id.split(',');
-	window.alert("The month is: " + months[partsOfStr[1]] + "\nThe day is: " + partsOfStr[0]);*/
 	
 	location.replace("list_rides");
-	/*$ajax({
-		type: "POST",
-		url: "~/code.py",
-		data*/
 }
 
 function highlight(tag) 
