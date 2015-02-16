@@ -104,7 +104,7 @@ class SavePostPage(webapp2.RequestHandler):
       post.user = user.email()
       post.time = int(time.time())
       post.put()
-    self.redirect('/')
+    self.redirect('/list_rides')
     
 ###############################################################################
 # We have to make sure we map our HTTP request pages to the actual
