@@ -1,4 +1,37 @@
-
-body {
-  text-align: center;
+.backgroundImg{
+	position: fixed;
+	display: block;
+	background-image: url("toonMap.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+	-webkit-filter: blur(10px);
+	-moz-filter: blur(10px);
+	-ms-filter: blur(10px);
+	-o-filter: blur(10px);
+	filter: blur(10px);
+	z-index: 1;
 }
+
+.content{
+	text-align: center;
+	position: relative;
+	display: block;
+	z-index: 999;
+	width: 100%;
+	font-weight: bold;
+}
+
+.contact, .car, .arrive, .depart, .cost{
+	position:relative;
+	right: 30%;
+	display:inline-block;
+	vertical-align: middle;
+	/*width: 38%;*/
+	text-align:left;
+	float: right;
+	clear: both;
+	width: 400px;
+}
+
