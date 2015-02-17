@@ -37,6 +37,8 @@ class PostPage(webapp2.RequestHandler):
     user = users.get_current_user()
     login = users.create_login_url('/')
     logout = users.create_logout_url('/')
+
+
     template_values = {
       'login': login,
       'logout': logout,
@@ -62,9 +64,6 @@ class MainPage(webapp2.RequestHandler):
             self.redirect(users.create_login_url(self.request.uri))
 
 
-
-
-
 class MainPage2(webapp2.RequestHandler):
   def get(self):
     user = users.get_current_user()
@@ -73,6 +72,9 @@ class MainPage2(webapp2.RequestHandler):
     posts = list()
     query = MessagePost.all()
     query.order('-time')
+    day = self.request.get('day')
+    month = self.request.get('month')
+    year = self.request.get('Year')
     for post in query.run():
       posts.append(post)
     
@@ -80,7 +82,10 @@ class MainPage2(webapp2.RequestHandler):
       'login': login,
       'logout': logout,
       'user': user,
-      'posts': posts
+      'posts': posts,
+      'day': day,
+      'month': month,
+      'year': year,
     }
     render_template(self, 'day2.html', template_values)
 
