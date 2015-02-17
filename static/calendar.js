@@ -76,10 +76,10 @@ function calendar(curr_month)
 			{
 				if(month == 0){
 					
-					text += ('<td class="cal_prev_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+(31-(the_first-1))+','+(11)+'">'+(31-(the_first-1))+'</td>');
+					text += ('<td class="cal_prev_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+(31-(the_first-1))+','+(11)+'">'+(31-(the_first-1))+'</td>');
 				}
 				else{
-					text += ('<td class="cal_prev_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+(days_in_month[month-1]-(the_first-1))+','+(month-1)+'">'+(days_in_month[month-1]-(the_first-1))+'</td>');
+					text += ('<td class="cal_prev_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+(days_in_month[month-1]-(the_first-1))+','+(month-1)+'">'+(days_in_month[month-1]-(the_first-1))+'</td>');
 				}
 				the_first--;
 				num++;
@@ -92,11 +92,11 @@ function calendar(curr_month)
 				if((7*weeks)+days-(the_first_copy) == today && today_month == month) //is this day today?
 				{ 
 					if(weeks == 0){ //if it is still the first week, don't subtract when the day the 1st started
-						text += ('<td class="today" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*weeks)+days-num)+','+(month)+'">'+((7*weeks)+days-num)+'</td>');
+						text += ('<td class="today" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+((7*weeks)+days-num)+','+(month)+'">'+((7*weeks)+days-num)+'</td>');
 					}
 					else{
 						//this day is today, change the class name for CSS
-						text += ('<td class="today" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*weeks)+days-num-the_first_copy)+','+(month)+'">'+((7*weeks)+days-num-the_first_copy)+'</td>');
+						text += ('<td class="today" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+((7*weeks)+days-num-the_first_copy)+','+(month)+'">'+((7*weeks)+days-num-the_first_copy)+'</td>');
 					}
 				}
 				
@@ -104,10 +104,10 @@ function calendar(curr_month)
 				{  //this day is not today, normal CSS name
 				
 					if(weeks == 0){ //if it is still the first week, don't subtract when the day the 1st started
-						text += ('<td class="cal_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*weeks)+days-num)+','+(month)+'">'+((7*weeks)+days-num)+'</td>');
+						text += ('<td class="cal_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+((7*weeks)+days-num)+','+(month)+'">'+((7*weeks)+days-num)+'</td>');
 					}
 					else{
-						text += ('<td class="cal_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*weeks)+days-num-the_first_copy)+','+(month)+'">'+((7*weeks)+days-num-the_first_copy)+'</td>');
+						text += ('<td class="cal_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+((7*weeks)+days-num-the_first_copy)+','+(month)+'">'+((7*weeks)+days-num-the_first_copy)+'</td>');
 					}
 				}
 				if((7*weeks)+days-(the_first_copy) == total){
@@ -117,10 +117,10 @@ function calendar(curr_month)
 			
 			else{ //no more days in this month, start writing for the next month, don't need to worry about num since that only effects the first week
 				if(month == 11){
-					text += ('<td class="cal_next_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*next_weeks)+days-numdays)+','+(0)+'" >'+((7*next_weeks)+days-numdays)+'</td>');
+					text += ('<td class="cal_next_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+((7*next_weeks)+days-numdays)+','+(0)+'" >'+((7*next_weeks)+days-numdays)+'</td>');
 				}
 				else{
-					text += ('<td class="cal_next_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this);" id="'+((7*next_weeks)+days-numdays)+','+(month+1)+'" >'+((7*next_weeks)+days-numdays)+'</td>');
+					text += ('<td class="cal_next_month_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+((7*next_weeks)+days-numdays)+','+(month+1)+'" >'+((7*next_weeks)+days-numdays)+'</td>');
 				}
 				
 				if(days == 7){
@@ -139,9 +139,15 @@ function calendar(curr_month)
 	return true;
 }
 
-function handleClick(elem){
+function handleClick(elem, year){
+
+	var monthAndDay = elem.id.split(",");
+	var day = monthAndDay[0];
+	var month = monthAndDay[1];
+	months_2 = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 	
-	location.replace("list_rides");
+	location.replace("list_rides?day="+day+"&month="+months_2[month]+"&Year="+year+"");
+	
 }
 
 function highlight(tag) 
