@@ -86,8 +86,10 @@ class MainPage2(webapp2.RequestHandler):
     day = self.request.get('day')
     month = self.request.get('month')
     year = self.request.get('Year')
+
     for post in query.run():
-      posts.append(post)
+      if post.day == day and post.month == month:
+        posts.append(post)
     
     template_values = {
       'login': login,
@@ -116,13 +118,17 @@ class SavePostPage(webapp2.RequestHandler):
       post.seats = self.request.get('seats')
       post.day = self.request.get('day')
       post.month = self.request.get('month')
-      post.year = self.request.get('year')
-
+      post.year = self.request.get('Year')
       post.message_text = self.request.get('text')
       post.user = user.email()
       post.time = int(time.time())
       post.put()
-    self.redirect('/list_rides')
+
+      day = self.request.get('day')
+      month = self.request.get('month')
+      year = self.request.get('year')
+
+    self.redirect('/list_rides?day='+day+'&month='+month+'&Year='+year)
     
 ###############################################################################
 # We have to make sure we map our HTTP request pages to the actual
