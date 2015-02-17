@@ -1,0 +1,10 @@
+body{
+	position: fixed;
+	display: block;
+	background-image: url("toonMap.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+}
