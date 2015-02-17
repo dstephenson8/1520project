@@ -23,6 +23,9 @@ class MessagePost(db.Model):
   message_text = db.StringProperty(multiline=True)
   time = db.IntegerProperty()
   user = db.StringProperty()
+  day = db.StringProperty()
+  month = db.StringProperty()
+  year = db.StringProperty()
   
   # we will use this method to automatically output a formatted time string.
   def formatted_time(self):
@@ -37,12 +40,17 @@ class PostPage(webapp2.RequestHandler):
     user = users.get_current_user()
     login = users.create_login_url('/')
     logout = users.create_logout_url('/')
-
+    day = self.request.get('day')
+    month = self.request.get('month')
+    year = self.request.get('year')
 
     template_values = {
       'login': login,
       'logout': logout,
-      'user': user
+      'user': user,
+      'day': day,
+      'month': month,
+      'year': year,
     }
     render_template(self, 'post.html', template_values)
     
@@ -62,6 +70,9 @@ class MainPage(webapp2.RequestHandler):
             render_template(self, 'calendar.html', {})
         else:
             self.redirect(users.create_login_url(self.request.uri))
+
+
+
 
 
 class MainPage2(webapp2.RequestHandler):
@@ -103,7 +114,9 @@ class SavePostPage(webapp2.RequestHandler):
       post.arrive = self.request.get('arrive')
       post.timeofdepart = self.request.get('timeofdepart')
       post.seats = self.request.get('seats')
-
+      post.day = self.request.get('day')
+      post.month = self.request.get('month')
+      post.year = self.request.get('year')
 
       post.message_text = self.request.get('text')
       post.user = user.email()
