@@ -146,7 +146,7 @@ function handleClick(elem, year){
 	var month = monthAndDay[1];
 	months_2 = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 	
-	location.replace("list_rides?day="+day+"&month="+months_2[month]+"&Year="+year+"");
+	location.replace("list_rides?day="+day+"&month="+months_2[month]+"&year="+year+"");
 	
 }
 
@@ -171,7 +171,6 @@ function nextMonth(elem)
 	document.curr_month++;
 	calendar(document.curr_month);
 }
-
 
 
 

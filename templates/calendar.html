@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Rider Sharer</title>
+        <title>Rider Sharer </title>
         <link rel="stylesheet" media="screen, print, handheld" type="text/css" href="../static/calendar.css" />
         <script type="text/javascript" src="../static/calendar.js"></script>
     </head>
 	
     <body>
-		<div id="my-calendar"></div>
-        <script type="text/javascript" >
+		<div id="my-calendar"></div>  
+         <script type="text/javascript" >
 			var d = new Date();
+            var days_maybe_2 = [];
+            days_maybe_2.length = 31;
+
+            {% for day in day_num %}
+                //alert({{day}});
+            {% endfor %}
+
+            {% for month in month_num %}
+                //alert({{month}});
+            {% endfor %}
+
+            {% for year in year_num %}
+                //alert({{year}});
+            {% endfor %}
+
             calendar(d.getMonth());
-        </script>
+         </script>
     </body>
 </html>

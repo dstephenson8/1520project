@@ -5,6 +5,7 @@ import webapp2
 from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
+from array import array #allow us to use arrays
 
 ###############################################################################
 # We'll just use this convenience function to retrieve and render a template.
@@ -67,7 +68,34 @@ class MainPage(webapp2.RequestHandler):
         user = users.get_current_user()
 
         if user:
-            render_template(self, 'calendar.html', {})
+            query = MessagePost.all()
+            posts = list()
+
+            day_num = array("i")
+            month_str = ["Janurary", "February", "March", "April", "May", "June", "July", "August", "September", "October" "November", "December"]
+            month_num = array("i")
+            year_num = array("i")
+
+            for post in query.run():
+              day_num.append(int(post.day))
+
+              i = 0
+              for month in month_str:
+                if month.lower() == post.month.lower():
+                  month_num.append(i)
+                  break
+                else:
+                  i += 1;
+
+              year_num.append(int(post.year))
+
+            template_values = {
+              'day_num': day_num,
+              'month_num': month_num,
+              'year_num': year_num,
+            }
+
+            render_template(self, 'calendar.html', template_values)
         else:
             self.redirect(users.create_login_url(self.request.uri))
 
@@ -75,7 +103,7 @@ class MainPage(webapp2.RequestHandler):
 
 
 
-class MainPage2(webapp2.RequestHandler):
+class listRides(webapp2.RequestHandler):
   def get(self):
     user = users.get_current_user()
     login = users.create_login_url('/')
@@ -85,7 +113,7 @@ class MainPage2(webapp2.RequestHandler):
     query.order('-time')
     day = self.request.get('day')
     month = self.request.get('month')
-    year = self.request.get('Year')
+    year = self.request.get('year')
 
     for post in query.run():
       if post.day == day and post.month == month:
@@ -118,7 +146,7 @@ class SavePostPage(webapp2.RequestHandler):
       post.seats = self.request.get('seats')
       post.day = self.request.get('day')
       post.month = self.request.get('month')
-      post.year = self.request.get('Year')
+      post.year = self.request.get('year')
       post.message_text = self.request.get('text')
       post.user = user.email()
       post.time = int(time.time())
@@ -128,7 +156,7 @@ class SavePostPage(webapp2.RequestHandler):
       month = self.request.get('month')
       year = self.request.get('year')
 
-    self.redirect('/list_rides?day='+day+'&month='+month+'&Year='+year)
+    self.redirect('/list_rides?day='+day+'&month='+month+'&year='+year)
     
 ###############################################################################
 # We have to make sure we map our HTTP request pages to the actual
@@ -139,7 +167,7 @@ class SavePostPage(webapp2.RequestHandler):
 ###############################################################################
 app = webapp2.WSGIApplication([
   ('/', MainPage),
-  ('/list_rides', MainPage2),
+  ('/list_rides', listRides),
   ('/savepost', SavePostPage),
   ('/post', PostPage)
 ], debug=True)
