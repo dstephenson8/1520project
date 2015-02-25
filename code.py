@@ -171,7 +171,7 @@ class SavePostPage(webapp2.RequestHandler):
 ###############################################################################
 app = webapp2.WSGIApplication([
   ('/', MainPage3),
-  ('/mainpage',MainPage),
+  ('/mainpage', MainPage),
   ('/list_rides', listRides),
   ('/savepost', SavePostPage),
   ('/post', PostPage)
