@@ -76,29 +76,29 @@ class MainPage(webapp2.RequestHandler):
             posts = list()
 
             #Create all of the data that needs to be passed
-            day_num = array("i")
+            day_num = []
             month_str = ["Janurary", "February", "March", "April", "May", "June", "July", "August", "September", "October" "November", "December"]
-            month_num = array("i")
-            year_num = array("i")
+            month_num = []
+            year_num = []
             depart_city = []
             arrive_city = []
             depart_time = []
 
-            i = 0
+            length = posts.length
+
             for post in query.run():
-              day_num[i] = int(post.day)
+              day_num.append(int(post.day))
               
               month = post.month;
               j = 0
-              while month != month_str[j]:
+              while month != month_str[j]
                 j+=1
 
-              month_num[i] = j
-              year_num[i] = int(post.year)
-              depart_city[i] = post.depart
-              depart_time[i] = post.time
-              arrive_city[i] = post.arrive
-              i += 1
+              month_num.append(j)
+              year_num.append(int(post.year))
+              depart_city.append(post.depart)
+              depart_time.append(post.time)
+              arrive_city.append(post.arrive)
 
 
             template_values = {
