@@ -13,8 +13,9 @@
 
 /* Controls the background image */
 body{
-	/* background-image: url("/static/images/calendar_background"); */
-	background-image: url("http://img.wallpaperstock.net:81/air-ballons-path-hills--sky-wallpapers_44232_1920x1200.jpg");
+	/*background-color: #66FF66;*/
+	 background-image: url("images/toonMap.jpg");
+	/*background-image: url("http://img.wallpaperstock.net:81/air-ballons-path-hills--sky-wallpapers_44232_1920x1200.jpg");*/
 }
 
 
