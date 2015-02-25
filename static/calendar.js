@@ -13,7 +13,6 @@ function calendar(curr_month)
 	var month = date.getMonth();
 	var year = date.getYear();
 	
-	//not sure why we need to do this
 	if(year<=200)
 	{
 			year += 1900;

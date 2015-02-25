@@ -10,20 +10,22 @@
 		<div id="my-calendar"></div>  
          <script type="text/javascript" >
 			var d = new Date();
-            var days_maybe_2 = [];
-            days_maybe_2.length = 31;
 
-            {% for day in day_num %}
-                //alert({{day}});
+            {% for post in posts %}
+                alert({{post.day}});
             {% endfor %}
 
-            {% for month in month_num %}
-                //alert({{month}});
-            {% endfor %}
+            // {% for day in day_num %}
+            //     alert({{day}});
+            // {% endfor %}
 
-            {% for year in year_num %}
-                //alert({{year}});
-            {% endfor %}
+            // {% for month in month_num %}
+            //     alert({{month}});
+            // {% endfor %}
+
+            // {% for year in year_num %}
+            //     alert({{year}});
+            // {% endfor %}
 
             calendar(d.getMonth());
          </script>

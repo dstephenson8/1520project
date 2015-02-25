@@ -71,28 +71,39 @@ class MainPage(webapp2.RequestHandler):
             query = MessagePost.all()
             posts = list()
 
+            #Create all of the data that needs to be passed
             day_num = array("i")
             month_str = ["Janurary", "February", "March", "April", "May", "June", "July", "August", "September", "October" "November", "December"]
             month_num = array("i")
             year_num = array("i")
+            depart_city = []
+            arrive_city = []
+            depart_time = []
 
+            i = 0
             for post in query.run():
-              day_num.append(int(post.day))
+              day_num[i] = int(post.day)
+              
+              month = post.month;
+              j = 0
+              while month != month_str[j]:
+                j+=1
 
-              i = 0
-              for month in month_str:
-                if month.lower() == post.month.lower():
-                  month_num.append(i)
-                  break
-                else:
-                  i += 1;
+              month_num[i] = j
+              year_num[i] = int(post.year)
+              depart_city[i] = post.depart
+              depart_time[i] = post.time
+              arrive_city[i] = post.arrive
+              i += 1
 
-              year_num.append(int(post.year))
 
             template_values = {
               'day_num': day_num,
               'month_num': month_num,
               'year_num': year_num,
+              'depart_city': depart_city,
+              'depart_time': depart_time,
+              'arrive_city': arrive_city,
             }
 
             render_template(self, 'calendar.html', template_values)
