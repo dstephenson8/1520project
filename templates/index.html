@@ -77,34 +77,8 @@ body{
 	z-index: 2;
 }
 
-.login input[type=text]{
-	width: 250px;
-	height: 30px;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.6);
-	border-radius: 2px;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 4px;
-}
 
-.login input[type=password]{
-	width: 250px;
-	height: 30px;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.6);
-	border-radius: 2px;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 4px;
-	margin-top: 10px;
-}
-
-.login input[type=button]{
+.login button[type=submit]{
 	width: 260px;
 	height: 35px;
 	background: #fff;
@@ -117,28 +91,6 @@ body{
 	font-weight: 400;
 	padding: 6px;
 	margin-top: 10px;
-}
-
-.login input[type=button]:hover{
-	opacity: 0.8;
-}
-
-.login input[type=button]:active{
-	opacity: 0.6;
-}
-
-.login input[type=text]:focus{
-	outline: none;
-	border: 1px solid rgba(255,255,255,0.9);
-}
-
-.login input[type=password]:focus{
-	outline: none;
-	border: 1px solid rgba(255,255,255,0.9);
-}
-
-.login input[type=button]:focus{
-	outline: none;
 }
 
 ::-webkit-input-placeholder{
@@ -155,7 +107,7 @@ body{
 </head>
 
 <body>
-<a href = "/mainpage">
+<form action = "/mainpage">
   <div class="body"></div>
 		<div class="grad"></div>
 		<div class="header">
@@ -163,9 +115,9 @@ body{
 		</div>
 		<br>
 		<div class="login">
-				<br><br><input type="button" value="Login">
+				<br><br><button type="submit">Login</button>
 		</div>
-</a>
+</form>
   <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
 
 </body>
