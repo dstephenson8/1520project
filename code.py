@@ -62,6 +62,10 @@ class PostPage(webapp2.RequestHandler):
 ###############################################################################
 
 
+class MainPage3(webapp2.RequestHandler):
+  def get(self):
+    render_template(self, 'index.html',{})
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         # Checks for active Google account session
@@ -177,7 +181,8 @@ class SavePostPage(webapp2.RequestHandler):
 # one of these represents one URL-to-RequestHandler pairing.
 ###############################################################################
 app = webapp2.WSGIApplication([
-  ('/', MainPage),
+  ('/', MainPage3),
+  ('/mainpage', MainPage),
   ('/list_rides', listRides),
   ('/savepost', SavePostPage),
   ('/post', PostPage)
