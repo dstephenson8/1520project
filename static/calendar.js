@@ -3,6 +3,13 @@ function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_
 	//holds the current month which will be used to go to the previous or next month
 	document.curr_month = curr_month;
 	
+
+	for(i = 0; i < day_num.length; i++){
+
+		alert("The day is: "+ day_num[i] + "\nThe month is: " + month_num[i] + "\nThe year is: " + year_num[i]
+			+ "\nThe depart city: " + depart_city[i] + "\nThe depart_time: " + depart_time[i] + "\nThe arrival city: " + arrive_city[i]);
+	}
+
 	//create date object
 	var date = new Date();
 	
