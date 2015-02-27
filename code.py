@@ -1,6 +1,7 @@
 import os
 import time
 import webapp2
+import json
 
 from google.appengine.api import users
 from google.appengine.ext import db
@@ -97,14 +98,19 @@ class calendarHandler(webapp2.RequestHandler):
                 depart_city.append(post.depart)
                 depart_time.append(post.time)
                 arrive_city.append(post.arrive)
+            # cities="[";
+            # for city in depart_city:
+            #   cities+="\""+city+"\","
+
+            # cities=cities[0:-1]+"]"
 
             template_values = {
               'day_num': day_num,
               'month_num': month_num,
               'year_num': year_num,
-              'depart_city': depart_city,
-              'depart_time': depart_time,
-              'arrive_city': arrive_city,
+              'depart_city': json.dumps(depart_city),
+              'depart_time': json.dumps(depart_time),
+              'arrive_city': json.dumps(arrive_city),
             }
 
             render_template(self, 'calendar.html', template_values)
