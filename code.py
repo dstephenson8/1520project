@@ -36,7 +36,7 @@ class MessagePost(db.Model):
 ###############################################################################
 # This handler will be used to set up the post form at post.html.
 ###############################################################################
-class PostPage(webapp2.RequestHandler):
+class PostRideHandler(webapp2.RequestHandler):
   def get(self):
     user = users.get_current_user()
     login = users.create_login_url('/')
@@ -53,7 +53,7 @@ class PostPage(webapp2.RequestHandler):
       'month': month,
       'year': year,
     }
-    render_template(self, 'post.html', template_values)
+    render_template(self, 'postRide.html', template_values)
     
 
 ###############################################################################
@@ -62,11 +62,11 @@ class PostPage(webapp2.RequestHandler):
 ###############################################################################
 
 
-class MainPage3(webapp2.RequestHandler):
-  def get(self):
-    render_template(self, 'index.html',{})
-
 class MainPage(webapp2.RequestHandler):
+  def get(self):
+    render_template(self, 'MainPage.html',{})
+
+class calendarHandler(webapp2.RequestHandler):
     def get(self):
         # Checks for active Google account session
         user = users.get_current_user()
@@ -84,22 +84,19 @@ class MainPage(webapp2.RequestHandler):
             arrive_city = []
             depart_time = []
 
-            length = posts.length
-
             for post in query.run():
-              day_num.append(int(post.day))
-              
-              month = post.month;
-              j = 0
-              while month != month_str[j]
-                j+=1
+                day_num.append(int(post.day))
+                
+                month = post.month;
+                j = 0
+                while month != month_str[j]:
+                  j+=1
 
-              month_num.append(j)
-              year_num.append(int(post.year))
-              depart_city.append(post.depart)
-              depart_time.append(post.time)
-              arrive_city.append(post.arrive)
-
+                month_num.append(j)
+                year_num.append(int(post.year))
+                depart_city.append(post.depart)
+                depart_time.append(post.time)
+                arrive_city.append(post.arrive)
 
             template_values = {
               'day_num': day_num,
@@ -118,7 +115,7 @@ class MainPage(webapp2.RequestHandler):
 
 
 
-class listRides(webapp2.RequestHandler):
+class listRidesHandler(webapp2.RequestHandler):
   def get(self):
     user = users.get_current_user()
     login = users.create_login_url('/')
@@ -143,14 +140,13 @@ class listRides(webapp2.RequestHandler):
       'month': month,
       'year': year,
     }
-    render_template(self, 'day2.html', template_values)
+    render_template(self, 'listing_Of_Rides.html', template_values)
 
     
 ###############################################################################
-# This will handle the form submission, then redirect the user to the main 
-# page.
+# This will handle the form submission, then redirect the user to the list rides page
 ###############################################################################
-class SavePostPage(webapp2.RequestHandler):
+class SaveRideHandler(webapp2.RequestHandler):
   def post(self):
     user = users.get_current_user()
     if user:
@@ -181,10 +177,10 @@ class SavePostPage(webapp2.RequestHandler):
 # one of these represents one URL-to-RequestHandler pairing.
 ###############################################################################
 app = webapp2.WSGIApplication([
-  ('/', MainPage3),
-  ('/mainpage', MainPage),
-  ('/list_rides', listRides),
-  ('/savepost', SavePostPage),
-  ('/post', PostPage)
+  ('/', MainPage),
+  ('/calendar', calendarHandler),
+  ('/list_rides', listRidesHandler),
+  ('/postRide', PostRideHandler),
+  ('/saveRide', SaveRideHandler)
 ], debug=True)
 

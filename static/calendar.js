@@ -1,4 +1,4 @@
-function calendar(curr_month)
+function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_time, arrive_city)
 {
 	//holds the current month which will be used to go to the previous or next month
 	document.curr_month = curr_month;

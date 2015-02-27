@@ -11,19 +11,33 @@
          <script type="text/javascript" >
 			var d = new Date();
 
+            //--------CHECKS BELOW TO ENSURE THE CORRECT DATA IS RETRIEVED--------
             // {% for day in day_num %}
-            //     alert({{day}});
+            //    alert("The day is: " + {{day}});
             // {% endfor %}
 
             // {% for month in month_num %}
-            //     alert({{month}});
+            //     alert("The month is: " + {{month}});
             // {% endfor %}
 
             // {% for year in year_num %}
-            //     alert({{year}});
+            //     alert("The year is: " + {{year}});
             // {% endfor %}
 
-            calendar(d.getMonth());
+            // {% for city in depart_city %}
+            //     alert("The depart city is: " + city);
+            // {% endfor %}
+
+            // {% for time in depart_time %}
+            //     alert("The depart time is: " + {{time}});
+            // {% endfor %}
+
+            // {% for acity in arrive_city %}
+            //     alert("The arrival city is : " +{{acity}});
+            // {% endfor %}
+
+            //create the calendar with the given data passed to it
+            calendar(d.getMonth(), {{day_num}}, {{month_num}}, {{year_num}}, {{depart_city}}, {{depart_time}}, {{arrive_city}});
          </script>
     </body>
 </html>
