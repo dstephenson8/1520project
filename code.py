@@ -98,11 +98,6 @@ class calendarHandler(webapp2.RequestHandler):
                 depart_city.append(post.depart)
                 depart_time.append(post.time)
                 arrive_city.append(post.arrive)
-            # cities="[";
-            # for city in depart_city:
-            #   cities+="\""+city+"\","
-
-            # cities=cities[0:-1]+"]"
 
             template_values = {
               'day_num': day_num,
@@ -116,9 +111,6 @@ class calendarHandler(webapp2.RequestHandler):
             render_template(self, 'calendar.html', template_values)
         else:
             self.redirect(users.create_login_url(self.request.uri))
-
-
-
 
 
 class listRidesHandler(webapp2.RequestHandler):

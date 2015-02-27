@@ -3,7 +3,7 @@
 .cal_calendar
 {
 	border-collapse: collapse;
-	padding: 5px;
+	padding: 1vw;
 	/*border: 1px solid LightSlateGray;*/
 	table-layout: fixed;
 	text-align: center;
@@ -27,7 +27,7 @@ body{
 	text-align: center;
 	background-color: DarkBlue;
 	font-size: 3vw;
-	border-spacing: 50px;
+	border-spacing: 4vw;
 }
 
 /* Controls todays td */
@@ -49,7 +49,7 @@ body{
 	vertical-align: top;
     border: 2px solid LightSteelBlue;
     background-color: White;
-    height: 100px;
+    height: 6vw;
 	font-size: 2vw;
 	font-weight: 600;
 }
@@ -60,7 +60,7 @@ body{
 	border: 2px solid LightSteelBlue;
     color: White;
     background-color: DarkBlue;
-	height: 50px;
+	height: 4vw;
 	text-align: center;
 	vertical-align: center;
 	font-size: 1.5vw;
@@ -73,7 +73,7 @@ body{
 	vertical-align: top;
     border: 2px solid LightSteelBlue;
     background-color: White;
-    height: 100px;
+    height: 6vw;
 	font-size: 2vw;
 	font-weight: 600;
 	color: #A9A9A9;  /*slightly darker gray than LightGray */
@@ -86,7 +86,7 @@ body{
 	vertical-align: top;
     border: 2px solid LightSteelBlue;
     background-color: White;
-    height: 100px;
+    height: 6vw;
 	font-size: 2vw;
 	font-weight: 600;
 	color: #A9A9A9;  /*slightly darker gray than LightGray */
