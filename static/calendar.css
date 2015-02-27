@@ -110,3 +110,12 @@ body{
 	border: none
 
 }
+
+/* Cannot get vertical-align to work! */
+.date_info
+{
+	text-align: center;
+	font-size: 1vw;
+	vertical-align: top;
+	color: Purple;
+}

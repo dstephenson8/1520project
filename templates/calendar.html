@@ -12,27 +12,6 @@
          <script type="text/javascript" >
 			var d = new Date();
 
-            // //--------CHECKS BELOW TO ENSURE THE CORRECT DATA IS RETRIEVED--------
-            // {% for day in day_num %}
-            //    alert("The day is: " + {{day}});
-            // {% endfor %}
-
-            // {% for month in month_num %}
-            //     alert("The month is: " + {{month}});
-            // {% endfor %}
-
-            // {% for year in year_num %}
-            //     alert("The year is: " + {{year}});
-            // {% endfor %}
-
- 
-            // {% for time in depart_time %}
-            //     alert("The depart time is: " + {{time}});
-            // {% endfor %}
-
-            // {% for acity in arrive_city %}
-            //     alert("The arrival city is : " + "{{acity}}");
-            // {% endfor %}
                         //create the calendar with the given data passed to it
             calendar(d.getMonth(), {{day_num}}, {{month_num}}, {{year_num}}, {{depart_city|safe}}, {{depart_time|safe}}, {{arrive_city|safe}});
          </script>
