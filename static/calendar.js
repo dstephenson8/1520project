@@ -2,13 +2,6 @@ function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_
 {
 	//holds the current month which will be used to go to the previous or next month
 	document.curr_month = curr_month;
-	
-	//----------------------FOR ENSURING DATA IS CORRECTLY PASSING-----------------------------------
-	// for(i = 0; i < day_num.length; i++){
-
-	// 	alert("The day is: "+ day_num[i] + "\nThe month is: " + month_num[i] + "\nThe year is: " + year_num[i]
-	// 		+ "\nThe depart city: " + depart_city[i] + "\nThe depart_time: " + depart_time[i] + "\nThe arrival city: " + arrive_city[i]);
-	// }
 
 	//create date object
 	var date = new Date();
@@ -44,13 +37,14 @@ function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_
 	
 	//create table and first row
 	var text = '';
+
 	text += ('<table class="cal_calendar"><tbody id="cal_body"><tr>');
 	//create previous month button
-	text += ('<td class="button_td"><button type="submit" class="button" onmouseover="highlight(this);" onclick="prevMonth(this);" id="'+month+'">Previous Month</button></td>');
+	text += ('<td class="button_td" id="prev_month"><button type="submit" class="button" onmouseover="highlight(this);" id="'+month+'">Previous Month</button></td>');
 	//create title for calendar
 	text += ('<th colspan="5" id="date">'+date_today+'</th>');
 	//create next month button
-	text += ('<td class="button_td"><button type="submit" class="button" onmouseover="highlight(this);" onclick="nextMonth(this);" id="'+month+'">Next Month</button></td></tr>');
+	text += ('<td class="button_td" id="next_month"><button type="submit" class="button" onmouseover="highlight(this);" id="'+month+'">Next Month</button></td></tr>');
 	//create week label headers
 	text += ('<tr class="cal_weeks"><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th></tr><tr>');
 	
@@ -187,7 +181,8 @@ function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_
 	text += ('</tbody></table>');
 	
 	document.getElementById('my-calendar').innerHTML = text;
-	
+	document.getElementById('next_month').onclick=function(){nextMonth(day_num,month_num,year_num,depart_city,depart_time,arrive_city);};
+	document.getElementById('prev_month').onclick=function(){prevMonth(day_num,month_num,year_num,depart_city,depart_time,arrive_city);};
 	return true;
 }
 
@@ -199,6 +194,8 @@ function handleClick(elem, year){
 	var month = monthAndDay[1];
 	months_2 = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 	
+	//window.open("http://localhost:9080/list_rides?day="+day+"&month="+months_2[month]+"&year="+year+"", "_blank", "width=400, height=400, scrollbars = no");
+
 	location.replace("list_rides?day="+day+"&month="+months_2[month]+"&year="+year+"");
 	
 }
@@ -216,17 +213,17 @@ function unhighlight(tag)
 }
 
 //controls when the user hits the previous month button
-function prevMonth(elem)
+function prevMonth(day_num, month_num, year_num, depart_city, depart_time, arrive_city)
 {
 	document.curr_month--;
-	calendar(document.curr_month);
+	calendar(document.curr_month, day_num, month_num, year_num, depart_city, depart_time, arrive_city);
 }
 
 //controls when the user hits the next month button
-function nextMonth(elem)
+function nextMonth(day_num, month_num, year_num, depart_city, depart_time, arrive_city)
 {
 	document.curr_month++;
-	calendar(document.curr_month);
+	calendar(document.curr_month, day_num, month_num, year_num, depart_city, depart_time, arrive_city); 	
 }
 
 //returns the number of rides for a certain day
@@ -245,10 +242,10 @@ function get_day_info(curr_day, curr_month, curr_year, day_num, month_num, year_
 
 		if(num_posts_this_day > 0){
 			if(num_posts_this_day == 1){
-				return num_posts_this_day+" Ride";
+				return num_posts_this_day+" Ride Available";
 			}
 			else{
-				return num_posts_this_day+" Rides";
+				return num_posts_this_day+" Rides Available";
 			}
 		}
 		else{

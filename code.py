@@ -126,7 +126,7 @@ class listRidesHandler(webapp2.RequestHandler):
     year = self.request.get('year')
 
     for post in query.run():
-      if post.day == day and post.month == month:
+      if post.day == day and post.month == month and post.year == year:
         posts.append(post)
     
     template_values = {

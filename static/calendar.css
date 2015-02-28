@@ -13,9 +13,15 @@
 
 /* Controls the background image */
 body{
-	/*background-color: #66FF66;*/
-	 background-image: url("images/toonMap.jpg");
-	/*background-image: url("http://img.wallpaperstock.net:81/air-ballons-path-hills--sky-wallpapers_44232_1920x1200.jpg");*/
+	position: absolute;
+	top: 1vw;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background-image: url("images/toonMap.jpg");
+	background-size: cover; 
 }
 
 
@@ -23,9 +29,9 @@ body{
 #date
 {
 	border: none;
-	color: white;
+	color: #FFFFFF;
 	text-align: center;
-	background-color: DarkBlue;
+	background-color: #00008B;
 	font-size: 3vw;
 	border-spacing: 4vw;
 }
@@ -38,8 +44,8 @@ body{
 	text-align: left;
 	vertical-align: top;
 	color: Crimson;
-	background-color: White;
-	border: 2px solid LightSteelBlue;
+	background-color: #FFFFFF;
+	border: 2px solid #B0C4DE;
 }
 
 /* Controls the table data tags besides for today's tag*/
@@ -47,8 +53,8 @@ body{
 {
 	text-align: left;
 	vertical-align: top;
-    border: 2px solid LightSteelBlue;
-    background-color: White;
+    border: 2px solid #B0C4DE;
+    background-color: #FFFFFF;
     height: 6vw;
 	font-size: 2vw;
 	font-weight: 600;
@@ -57,9 +63,9 @@ body{
 /* Controls the weeks headers */
 .cal_weeks
 {
-	border: 2px solid LightSteelBlue;
-    color: White;
-    background-color: DarkBlue;
+	border: 2px solid #B0C4DE;
+    color: #FFFFFF;
+    background-color: #00008B;
 	height: 4vw;
 	text-align: center;
 	vertical-align: center;
@@ -71,8 +77,8 @@ body{
 {
 	text-align: left;
 	vertical-align: top;
-    border: 2px solid LightSteelBlue;
-    background-color: White;
+    border: 2px solid #B0C4DE;
+    background-color: #FFFFFF;
     height: 6vw;
 	font-size: 2vw;
 	font-weight: 600;
@@ -84,8 +90,8 @@ body{
 {
 	text-align: left;
 	vertical-align: top;
-    border: 2px solid LightSteelBlue;
-    background-color: White;
+    border: 2px solid #B0C4DE;
+    background-color: #FFFFFF;
     height: 6vw;
 	font-size: 2vw;
 	font-weight: 600;
@@ -95,8 +101,8 @@ body{
 /* Controls the calendar buttons (previous and next month) */
 .button
 {
-	color: White;
-	background-color: DarkBlue;
+	color: #FFFFFF;
+	background-color: #00008B;
 	border-radius: 20px;
 	width: 85%;
 	height:85%;
@@ -115,7 +121,7 @@ body{
 .date_info
 {
 	text-align: center;
-	font-size: 1vw;
+	font-size: .9vw;
 	vertical-align: top;
-	color: Purple;
+	color: #800080;
 }

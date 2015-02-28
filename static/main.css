@@ -1,5 +1,5 @@
 body{
-	position: fixed;
+	position: absolute;
 	display: block;
 	background-image: url("images/toonMap.jpg");
 	background-size: cover;

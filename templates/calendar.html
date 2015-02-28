@@ -9,10 +9,10 @@
     <body>
 
 		<div id="my-calendar"></div>  
-         <script type="text/javascript" >
+         <script type="text/javascript">
 			var d = new Date();
 
-                        //create the calendar with the given data passed to it
+            //create the calendar with the given data passed to it
             calendar(d.getMonth(), {{day_num}}, {{month_num}}, {{year_num}}, {{depart_city|safe}}, {{depart_time|safe}}, {{arrive_city|safe}});
          </script>
     </body>
