@@ -129,6 +129,11 @@ class listRidesHandler(webapp2.RequestHandler):
       if post.day == day and post.month == month and post.year == year:
         posts.append(post)
     
+    if(len(posts) == 1):
+      oneRide = True;
+    else:
+      oneRide = False;
+
     template_values = {
       'login': login,
       'logout': logout,
@@ -137,6 +142,7 @@ class listRidesHandler(webapp2.RequestHandler):
       'day': day,
       'month': month,
       'year': year,
+      'oneRide': oneRide,
     }
     render_template(self, 'listing_Of_Rides.html', template_values)
 

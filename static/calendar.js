@@ -121,7 +121,7 @@ function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_
 						curr_year = year;
 						day_info = get_day_info(curr_day, curr_month, curr_year, day_num, month_num, year_num);
 
-						//this day is today, change the class name for CSS
+						//this day is today, change the class name for CSS 
 						text += ('<td class="today" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+((7*weeks)+days-num-the_first)+','+(month)+'">'+((7*weeks)+days-num-the_first)+'<div class="date_info">'+day_info+'</div></td>');
 					}
 				}

@@ -2,40 +2,76 @@
 {% block content %}
 
 {% if user %}
-Hello, {{user.email}}!  Click <a href="{{logout}}">here</a> to log out.
+<div class="logout">Hello, {{user.nickname}}!  Click <a href="{{logout}}">here</a> to log out.</div>
+<html>
+	<head>
 
-<br><br>
-<form action="/postRide">
-	<input type="hidden" value={{month}} name = 'month'>
-	<input type="hidden" value={{day}} name = 'day'>
-	<input type="hidden" value={{year}} name = 'year'>
-	<input type="submit" value="Post a new Ride">
-</form>
-<form action="/calendar?month="{{month}}"">
-    <input type="submit" value="Return to Calendar">
-</form>
-<center> Rides for: {{month}} {{day}}, {{year}}</center><br><br>
-<br><br>There is/are {{posts|length}} ride(s).<br><br>
-{% for post in posts %}
-<div class="message">
+ 	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/listing_Of_Rides_CSS">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<br>On <span class="time">{{post.formatted_time}}</span>, {{post.user}} said:<br><br>
+    	<title>Ride Sharer</title>
+	</head>
 
-Departure City: <span class="subject">{{post.depart}}</span><br>
 
-Arrival City: <span class="subject">{{post.arrive}}</span><br>
+	<body>
+		<br>
+		<form action="/postRide">
+			<input type="hidden" value={{month}} name = 'month'>
+			<input type="hidden" value={{day}} name = 'day'>
+			<input type="hidden" value={{year}} name = 'year'>
+			<input type="submit" value="Post a new Ride">
+		</form>
+		<form action="/calendar?month="{{month}}"">
+		    <input type="submit" value="Return to Calendar">
+		</form>
 
-Depature Time: <span class="subject">{{post.timeofdepart}}</span><br>
+		<br><br>
+		<div class="panel panel-default col-md-10 col-md-offset-1">
+			<div class="panel-heading">Rides for: {{month}} {{day}}, {{year}}</div>
 
-Number of available seats: <span class="subject">{{post.seats}}</span><br>
+			<div class="panel-body">
+				{% if oneRide %}
+					There is {{posts|length}} ride.
+				{% endif %}
+				{% if not oneRide %}
+					There are {{posts|length}} rides.
+				{% endif %}
+				<br><br>
+				<ul class="list-group">
 
-<!--<a href="/user_detail?user={{post.user}}">This is a link</a>-->
-<div class="messagetext">{{post.message_text}}</div>
-</div>
+					{% for post in posts %}
 
-{% endfor %}
-{% else %}
-Click <a href="{{login}}">here</a> to log in.
-{% endif %}
+					<li class="list-group-item list-group-item-info">
 
-{% endblock %}
+					<div class="message">
+						<br>On <span class="time">{{post.formatted_time}}</span>, {{post.user}} said:<br><br>
+
+						Departure City: <span class="subject">{{post.depart}}</span><br>
+						Arrival City: <span class="subject">{{post.arrive}}</span><br>
+						Depature Time: <span class="subject">{{post.timeofdepart}}</span><br>
+						Number of available seats: <span class="subject">{{post.seats}}</span><br>
+						<!--<a href="/user_detail?user={{post.user}}">This is a link</a>-->
+						Message from {{post.user}}: <span class="messagetext">{{post.message_text}}</span>
+					</div>
+					</li>
+
+					<br><br>
+
+					{% endfor %}
+				</ul>
+
+				{% else %}
+				Click <a href="{{login}}">here</a> to log in.
+				{% endif %}
+
+				{% endblock %}
+			</div>
+		</div>
+	</body>
+</html>
