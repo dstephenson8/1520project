@@ -1,7 +1,7 @@
 .backgroundImg{
 	position: fixed;
 	display: block;
-	background-image: url("/images/toonMap.jpg");
+	background-image: url("../static/images/toonMap.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 100%;

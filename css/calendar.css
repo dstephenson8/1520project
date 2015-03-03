@@ -1,0 +1,127 @@
+
+/* Controls the overall table */
+.cal_calendar
+{
+	border-collapse: collapse;
+	padding: 1vw;
+	/*border: 1px solid LightSlateGray;*/
+	table-layout: fixed;
+	text-align: center;
+    width: 75%;
+    margin:auto;
+}
+
+/* Controls the background image */
+body{
+	position: absolute;
+	top: 1vw;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background-image: url("../static/images/toonMap.jpg");
+	background-size: cover; 
+}
+
+
+/* Controls the title of the calendar */
+#date
+{
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	background-color: #00008B;
+	font-size: 3vw;
+	border-spacing: 4vw;
+}
+
+/* Controls todays td */
+.today
+{
+	font-size: 2vw;
+	font-weight: bold;
+	text-align: left;
+	vertical-align: top;
+	color: Crimson;
+	background-color: #FFFFFF;
+	border: 2px solid #B0C4DE;
+}
+
+/* Controls the table data tags besides for today's tag*/
+.cal_days
+{
+	text-align: left;
+	vertical-align: top;
+    border: 2px solid #B0C4DE;
+    background-color: #FFFFFF;
+    height: 6vw;
+	font-size: 2vw;
+	font-weight: 600;
+}
+
+/* Controls the weeks headers */
+.cal_weeks
+{
+	border: 2px solid #B0C4DE;
+    color: #FFFFFF;
+    background-color: #00008B;
+	height: 4vw;
+	text-align: center;
+	vertical-align: center;
+	font-size: 1.5vw;
+}
+
+/* Controls days for the month after the current month of the calendar */
+.cal_next_month_days
+{
+	text-align: left;
+	vertical-align: top;
+    border: 2px solid #B0C4DE;
+    background-color: #FFFFFF;
+    height: 6vw;
+	font-size: 2vw;
+	font-weight: 600;
+	color: #A9A9A9;  /*slightly darker gray than LightGray */
+}
+
+/* Controls days for the month before the current month of the calendar */
+.cal_prev_month_days
+{
+	text-align: left;
+	vertical-align: top;
+    border: 2px solid #B0C4DE;
+    background-color: #FFFFFF;
+    height: 6vw;
+	font-size: 2vw;
+	font-weight: 600;
+	color: #A9A9A9;  /*slightly darker gray than LightGray */
+}
+
+/* Controls the calendar buttons (previous and next month) */
+.button
+{
+	color: #FFFFFF;
+	background-color: #00008B;
+	border-radius: 20px;
+	width: 85%;
+	height:85%;
+	font-size: 1vw;
+	border: none;
+}
+
+/* Controls the td tag that the buttons are in */
+.button_td
+{
+	border: none
+
+}
+
+/* Cannot get vertical-align to work! */
+.date_info
+{
+	text-align: center;
+	font-size: .9vw;
+	vertical-align: top;
+	color: #800080;
+}
