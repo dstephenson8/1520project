@@ -1,35 +1,59 @@
-{% extends "base.html" %}
-{% block content %}
+<!DOCTYPE html>
+<html>
 
-{% if user %}
-Hello, {{user.email}}!  Click <a href="{{logout}}">here</a> to log out.
-<br><br>
-<form method="post" action="/saveRide">
+	{% extends "base.html" %}
+	{% block content %}
 
-<center>Post a ride for {{month}} {{day}}, {{year}}<br><br></center>
-<input type="hidden" value={{month}} name = 'month'>
-<input type="hidden" value={{day}} name = 'day'>
-<input type="hidden" value={{year}} name = 'year'>
+	{% if user %}
+	Hello, {{user.email}}!  Click <a href="{{logout}}">here</a> to log out.
+
+	<head>
+		<title>Ride Sharer</title>
+
+		<script src="../static/bootstrap/js/jquery-2.1.3.js"></script>
+		
+		<!-- Latest compiled and minified CSS -->
+	    <link rel="stylesheet" media="screen, print, handheld" href="../static/bootstrap/css/bootstrap.min.css">      
+
+	    <!-- Optional theme -->
+	    <link rel="stylesheet" media="screen, print, handheld" href="../static/bootstrap/css/bootstrap-theme.min.css">
+	    
+	    <!-- Latest compiled and minified JavaScript -->
+	    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+
+	    <!-- Created Style sheet -->
+	    <link rel="stylesheet" media="screen, print, handheld" href="../css/postRide_CSS">
+		
+	</body>
+		<br><br>
+		<form method="post" action="/saveRide">
+
+		<center>Post a ride for {{month}} {{day}}, {{year}}<br><br></center>
+		<input type="hidden" value={{month}} name = 'month'>
+		<input type="hidden" value={{day}} name = 'day'>
+		<input type="hidden" value={{year}} name = 'year'>
 
 
 
-<br>Depature City:<br>
-<input type="text" name="depart"><br><br>
+		<br>Depature City:<br>
+		<input type="text" name="depart"><br><br>
 
-Arrival City:<br>
-<input type="text" name="arrive"><br><br>
+		Arrival City:<br>
+		<input type="text" name="arrive"><br><br>
 
-Time of Depature :<br>
-<input type="text" name="timeofdepart"><br><br>
+		Time of Depature :<br>
+		<input type="text" name="timeofdepart"><br><br>
 
-Number of available Seats:<br>
-<input type="text" name="seats"><br><br>
+		Number of available Seats:<br>
+		<input type="text" name="seats"><br><br>
 
-Message:<br>
-<textarea rows="8" cols="100" name="text"></textarea><br><br>
-<input type="submit">
-{% else %}
-Click <a href="{{login}}">here</a> to log in.
-{% endif %}
+		Message:<br>
+		<textarea rows="8" cols="100" name="text"></textarea><br><br>
+		<input type="submit">
+		{% else %}
+		Click <a href="{{login}}">here</a> to log in.
+		{% endif %}
 
-{% endblock %}
+		{% endblock %}
+	</body>
+</html>

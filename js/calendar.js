@@ -1,22 +1,20 @@
-function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_time, arrive_city)
+function calendar(curr_month, curr_year, day_num, month_num, year_num, depart_city, depart_time, arrive_city)
 {
-	//holds the current month which will be used to go to the previous or next month
+	
+	//holds the current month and year which will be used to go to the previous or next month
 	document.curr_month = curr_month;
+	document.curr_year = curr_year;
 
 	//create date object
 	var date = new Date();
-	
-	//set the month from the input param
+
+	//set the month and year from the input parameters
 	date.setMonth(curr_month);
+	date.setYear(curr_year);
 	//get important attributes from object
 	var day = date.getDate();
 	var month = date.getMonth();
-	var year = date.getYear();
-	
-	if(year<=200)
-	{
-			year += 1900;
-	}
+	var year = date.getFullYear();
 	
 	//create months array and days in months
 	months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
@@ -29,8 +27,7 @@ function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_
 	}
 	
 	//total days in present month
-	total = days_in_month[month];
-	
+	total = days_in_month[curr_month];
 	
 	//variable for the title of the calendar
 	var date_today = months[month]+' '+year;
@@ -54,8 +51,12 @@ function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_
 	//sets the day to be the first of the current month
 	beginning.setDate(1);
 	
-	//gets the day of the week the first falls on
+	//gets the day of the week the first falls on, 0-sunday, 1-monday....
 	the_first = beginning.getDay();
+	the_first_copy = the_first; //used for subtraction when we are filling in this months days, the_first gets decremented to 0 and becomes useless after the first week
+
+	//num is the number of times we added a date from the previous month
+	num = 0; 
 	
 	//set today's day
 	var d_copy = new Date();
@@ -63,12 +64,10 @@ function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_
 	today_month = d_copy.getMonth();
 	next_weeks = 0;
 
-	for(weeks = 0; weeks < 6; weeks++){  //rows for the calendar
+	for(weeks = 0; weeks < 6; weeks++){  //rows for the calendar, set to be 5 unless the last week has only the next months days
 	
 		text += ('<tr>');
-		num = 0; //num is the number of times we added a date from the previous month
 
-		
 		for(days = 1, numdays = 0; days < 8; days++) //cols for calendar
 		{	
 			day_info = ""; //will be used to hold the value for the td tag
@@ -99,11 +98,10 @@ function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_
 				the_first--;
 				num++;
 			}
-			else if( (7*weeks)+days-(the_first) <= total) //are there more days?
+			else if( (7*weeks)+days-(the_first_copy) <= total) //fill in days for this month
 			{	
 				numdays++;
-				
-				
+
 				if((7*weeks)+days-(the_first) == today && today_month == month) //is this day today?
 				{ 
 					if(weeks == 0){ //if it is still the first week, don't subtract when the day the 1st started
@@ -115,21 +113,23 @@ function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_
 
 						text += ('<td class="today" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+((7*weeks)+days-num)+','+(month)+'">'+((7*weeks)+days-num)+'<div class="date_info">'+day_info+'</div></td>');
 					}
-					else{
+
+					else{ //it is not still the first week
+
 						curr_day = (7*weeks)+days-num-the_first;
 						curr_month = month;
 						curr_year = year;
 						day_info = get_day_info(curr_day, curr_month, curr_year, day_num, month_num, year_num);
 
-						//this day is today, change the class name for CSS 
 						text += ('<td class="today" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+((7*weeks)+days-num-the_first)+','+(month)+'">'+((7*weeks)+days-num-the_first)+'<div class="date_info">'+day_info+'</div></td>');
 					}
 				}
 				
-				else
-				{  //this day is not today, normal CSS name
+				else //this day is not today, normal CSS name
+				{  
 				
 					if(weeks == 0){ //if it is still the first week, don't subtract when the day the 1st started
+
 						curr_day = (7*weeks)+days-num;
 						curr_month = month;
 						curr_year = year;
@@ -137,7 +137,9 @@ function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_
 
 						text += ('<td class="cal_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+((7*weeks)+days-num)+','+(month)+'">'+((7*weeks)+days-num)+'<div class="date_info">'+day_info+'</div></td>');
 					}
-					else{
+
+					else{ //not the first week
+
 						curr_day = (7*weeks)+days-num-the_first;
 						curr_month = month;
 						curr_year = year;
@@ -146,7 +148,7 @@ function calendar(curr_month, day_num, month_num, year_num, depart_city, depart_
 						text += ('<td class="cal_days" onmouseover="highlight(this);" onmouseout="unhighlight(this);" onclick="handleClick(this,'+year+');" id="'+((7*weeks)+days-num-the_first)+','+(month)+'">'+((7*weeks)+days-num-the_first)+'<div class="date_info">'+day_info+'</div></td>');
 					}
 				}
-				if((7*weeks)+days-(the_first) == total){
+				if((7*weeks)+days-(the_first_copy) == total){
 					weeks = 6;
 				}
 			}
@@ -216,14 +218,22 @@ function unhighlight(tag)
 function prevMonth(day_num, month_num, year_num, depart_city, depart_time, arrive_city)
 {
 	document.curr_month--;
-	calendar(document.curr_month, day_num, month_num, year_num, depart_city, depart_time, arrive_city);
+	if(document.curr_month < 0){
+		document.curr_month = 11;
+		document.curr_year -= 1;
+	}
+	calendar(document.curr_month, document.curr_year, day_num, month_num, year_num, depart_city, depart_time, arrive_city);
 }
 
 //controls when the user hits the next month button
 function nextMonth(day_num, month_num, year_num, depart_city, depart_time, arrive_city)
 {
 	document.curr_month++;
-	calendar(document.curr_month, day_num, month_num, year_num, depart_city, depart_time, arrive_city); 	
+	if(document.curr_month == 12){
+		document.curr_month = 0;
+		document.curr_year += 1;
+	}
+	calendar(document.curr_month, document.curr_year, day_num, month_num, year_num, depart_city, depart_time, arrive_city); 	
 }
 
 //returns the number of rides for a certain day

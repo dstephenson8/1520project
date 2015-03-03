@@ -1,10 +1,12 @@
+<!DOCTYPE html>
+<html>
+
 {% extends "base.html" %}
 {% block content %}
 
 {% if user %}
 <div class="logout">Hello, {{user.nickname}}!  Click <a href="{{logout}}">here</a> to log out.</div>
 
-<html>
 	<head>
 
 	 	<!-- Latest compiled and minified CSS -->
