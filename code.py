@@ -7,6 +7,7 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 from array import array #allow us to use arrays
+from google.appengine.api import mail
 
 ###############################################################################
 # We'll just use this convenience function to retrieve and render a template.
@@ -18,21 +19,79 @@ def render_template(handler, templatename, templatevalues):
 
 ###############################################################################
 class MessagePost(db.Model):
-  depart = db.StringProperty()
-  arrive = db.StringProperty()
-  timeofdepart = db.StringProperty()
-  seats = db.StringProperty()
-  message_text = db.StringProperty(multiline=True)
+
+  depart_address = db.StringProperty()
+  depart_city = db.StringProperty()
+  depart_state = db.StringProperty()
+  depart_zip = db.StringProperty()
+  depart_time = db.StringProperty()
+  arrive_address = db.StringProperty()
+  arrive_city = db.StringProperty()
+  arrive_state = db.StringProperty()
+  arrive_zip = db.StringProperty()
+  car_model = db.StringProperty()
+  car_year = db.StringProperty()
+  numSeats = db.IntegerProperty()
+  message = db.StringProperty(multiline=True)
   time = db.IntegerProperty()
   user = db.StringProperty()
   day = db.StringProperty()
   month = db.StringProperty()
   year = db.StringProperty()
+  nickname = db.StringProperty()
   
   # we will use this method to automatically output a formatted time string.
   def formatted_time(self):
     return time.ctime(self.time)
-  
+
+
+###############################################################################
+# This will handle the form submission, then redirect the user to the list rides page
+###############################################################################
+class SaveRideHandler(webapp2.RequestHandler):
+  def post(self):
+    user = users.get_current_user()
+    if user:
+      post = MessagePost()
+      post.depart_address = self.request.get('depart_address')
+      post.depart_city = self.request.get('depart_city')
+      post.depart_state = self.request.get('depart_state')
+      post.depart_zip = self.request.get('depart_zip')
+      post.depart_time = self.request.get('depart_time')
+      post.arrive_address = self.request.get('arrive_address')
+      post.arrive_city = self.request.get('arrive_city')
+      post.arrive_state = self.request.get('arrive_state')
+      post.arrive_zip = self.request.get('arrive_zip')
+      post.day = self.request.get('day')
+      post.month = self.request.get('month')
+      post.year = self.request.get('year')
+      post.car_model = self.request.get('car_model')
+      post.car_year = self.request.get('car_year')
+      post.numSeats = int(self.request.get('numSeats'))
+      post.message = self.request.get('message')
+      post.user = user.email()
+      post.time = int(time.time())
+      post.nickname = user.nickname()
+      post.put()
+
+      day = self.request.get('day')
+      month = self.request.get('month')
+      year = self.request.get('year')
+
+    message = mail.EmailMessage(sender="<1520GroupL@gmail.com>", subject="Your posted ride")
+    message.to = user.email()
+    message.body = """
+    Dear Sharer,
+
+      Your ride has been successfully posted! Thank you for using Ride Sharer.
+
+    The Ride Sharer Team
+    """
+    message.send()
+
+    self.redirect('/list_rides?day='+day+'&month='+month+'&year='+year)
+
+
 
 ###############################################################################
 # This handler will be used to set up the post form at post.html.
@@ -87,17 +146,17 @@ class calendarHandler(webapp2.RequestHandler):
 
             for post in query.run():
                 day_num.append(int(post.day))
-                
+
                 month = post.month;
                 j = 0
-                while month != month_str[j]:
+                while month != month_str[j] and j <= 11:
                   j+=1
 
                 month_num.append(j)
                 year_num.append(int(post.year))
-                depart_city.append(post.depart)
+                depart_city.append(post.depart_city)
                 depart_time.append(post.time)
-                arrive_city.append(post.arrive)
+                arrive_city.append(post.arrive_city)
 
             template_values = {
               'day_num': day_num,
@@ -129,10 +188,10 @@ class listRidesHandler(webapp2.RequestHandler):
       if post.day == day and post.month == month and post.year == year:
         posts.append(post)
     
-    if(len(posts) == 1):
-      oneRide = True;
+    if(len(posts) == 0):
+      noRides = True;
     else:
-      oneRide = False;
+      noRides = False;
 
     template_values = {
       'login': login,
@@ -142,37 +201,10 @@ class listRidesHandler(webapp2.RequestHandler):
       'day': day,
       'month': month,
       'year': year,
-      'oneRide': oneRide,
+      'noRides': noRides,
     }
     render_template(self, 'listing_Of_Rides.html', template_values)
 
-    
-###############################################################################
-# This will handle the form submission, then redirect the user to the list rides page
-###############################################################################
-class SaveRideHandler(webapp2.RequestHandler):
-  def post(self):
-    user = users.get_current_user()
-    if user:
-      post = MessagePost()
-      post.depart = self.request.get('depart')
-      post.arrive = self.request.get('arrive')
-      post.timeofdepart = self.request.get('timeofdepart')
-      post.seats = self.request.get('seats')
-      post.day = self.request.get('day')
-      post.month = self.request.get('month')
-      post.year = self.request.get('year')
-      post.message_text = self.request.get('text')
-      post.user = user.email()
-      post.time = int(time.time())
-      post.put()
-
-      day = self.request.get('day')
-      month = self.request.get('month')
-      year = self.request.get('year')
-
-    self.redirect('/list_rides?day='+day+'&month='+month+'&year='+year)
-    
 ###############################################################################
 # We have to make sure we map our HTTP request pages to the actual
 # RequestHandler objects here.
@@ -185,6 +217,7 @@ app = webapp2.WSGIApplication([
   ('/calendar', calendarHandler),
   ('/list_rides', listRidesHandler),
   ('/postRide', PostRideHandler),
-  ('/saveRide', SaveRideHandler)
+  ('/saveRide', SaveRideHandler),
 ], debug=True)
+
 

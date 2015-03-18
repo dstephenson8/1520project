@@ -21,7 +21,8 @@ body{
 	width: auto;
 	height: auto;
 	background-image: url("../static/images/toonMap.jpg");
-	background-size: cover; 
+	background-size: cover;
+	background-attachment: fixed;
 }
 
 

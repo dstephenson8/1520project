@@ -2,11 +2,24 @@
 <html>
   <head>
     <link rel="stylesheet" media="screen, print, handheld" href="../css/main.css">
+    <!-- <link rel="stylesheet" href="../static/main.css"> -->
     <!--<script src="/static/scripts.js"> -->
+    <script type="text/javascript">
+    function reserveSeat(seats){
+        //make reservation text green and bold and change button to text
+        document.getElementById("seatSpan").innerHTML = "Seat Reserved";
+        document.getElementById("seatSpan").style.color = "#00FF00";
+        document.getElementById("seatSpan").style.fontWeight = "bold";
+
+        //decrement deat number in vehicle
+        var element = seats;
+        elementNumber = parseFloat(element.innerHTML);
+        elementNumber-1;
+        element.InnerHTML = elementNumber;
+    }
     </script>
-    <title>Rider Sharer</title>
   </head>
-  <body>
-	{% block content %}{% endblock %}
+  <body><div id="image"></div>
+        {% block content %}{% endblock %}
   </body>
 </html>
