@@ -39,7 +39,7 @@ class MessagePost(db.Model):
   month = db.StringProperty()
   year = db.StringProperty()
   nickname = db.StringProperty()
-  
+
   # we will use this method to automatically output a formatted time string.
   def formatted_time(self):
     return time.ctime(self.time)
@@ -114,10 +114,10 @@ class PostRideHandler(webapp2.RequestHandler):
       'year': year,
     }
     render_template(self, 'postRide.html', template_values)
-    
+
 
 ###############################################################################
-# This is our main page handler.  It will show the MessagePost objects in 
+# This is our main page handler.  It will show the MessagePost objects in
 # the index.html page.
 ###############################################################################
 
@@ -187,7 +187,7 @@ class listRidesHandler(webapp2.RequestHandler):
     for post in query.run():
       if post.day == day and post.month == month and post.year == year:
         posts.append(post)
-    
+
     if(len(posts) == 0):
       noRides = True;
     else:
