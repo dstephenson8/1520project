@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+
+<html>
+	<head>
+		<title>Register</title>
+ 		<link rel="stylesheet" type="text/css" href="/css/register.css">
+	</head>
+
+
+	<script type="text/javascript">
+		// keeps count of exisitng emails
+		var emailcounter = 0;
+
+		//validates form
+		function validateForm(){
+			// empty errors element first
+			document.getElementById('errors').innerHTML="";
+			// get value of firstname and lastname
+			firstname = document.forms.regform.firstname.value;
+			lastname = document.forms.regform.lastname.value;
+			phonenumber= document.forms.regform.phonenumber.value;
+			email = document.forms.regform.email.value;
+
+			valid = true;
+			// check if anything is entered for firstname and lastname
+			if (firstname===null || firstname.length < 1){
+				document.getElementById('errors').innerHTML+="<li> First Name Missing</li>";
+				valid= false;
+			}
+			if (lastname===null || lastname.length < 1){
+				document.getElementById('errors').innerHTML+="<li> Last Name Missing</li>";
+				valid= false;
+			}
+			if (phonenumber===null || phonenumber.length < 1){
+				document.getElementById('errors').innerHTML+="<li> Phone Number Missing</li>";
+				valid= false;
+			}
+		
+			if (email===null || email.length < 1){
+				document.getElementById('errors').innerHTML+="<li> Email Missing</li>";
+				valid= false;
+			}
+
+			// if valid = true then form will be submitted otherwise it will not
+			return valid;
+		}
+		
+	</script>
+	 
+		<body>
+
+
+			<!-- on submit is the attribute that we use to specify what function should be called for valdiation.	 Note that we are returning a vlaue which indicates weather the form is valid or not  -->
+			<form action="/register" method="POST" onsubmit="return validateForm();" id="regform" name="regform">
+				<ul id='errors'>
+			
+				</ul>
+
+				<div align ="center" class = "header">
+					<div>Please fill out the information below</div><br>
+					<div>First Name: <input type="text" name="firstname" id="firstname" ><br></div>
+					<div>Last Name: <input type="text" name="lastname" id="lastname" ><br></div>
+					<div>Phone Number: <input type="text" name="phonenumber" id="phonenumber" ><br></div>
+					<div> .edu Email address: <input type="text" name="email" id="email" ><br></div>
+
+				<button id="submitbutton">Register</button>
+				</div>
+			</form>
+		</body>
+
+ 
+
+	
+</html>
