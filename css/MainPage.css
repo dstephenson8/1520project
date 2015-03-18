@@ -8,6 +8,7 @@ body{
 	color: #fff;
 	font-family: Arial;
 	font-size: 12px;
+	overflow: hidden;
 }
 
 .body{
@@ -20,7 +21,7 @@ body{
 	height: auto;
 	background-image: url("../static/images/toonMap.jpg");
 	background-size: cover;  
-	/*-webkit-filter: blur(5px);*/
+	overflow: hidden;
 	/*z-index: 0;*/
 }
 
@@ -88,10 +89,4 @@ body{
 
 ::-moz-input-placeholder{
    color: rgba(255,255,255,0.6);
-}
-
-
-.decription{
-
-
 }
