@@ -13,7 +13,9 @@ body{
 	background-size: cover;
 }
 
-.body{
+
+
+/*.body{
 	position: absolute;
 	top: -20px;
 	left: -20px;
@@ -23,10 +25,73 @@ body{
 	height: auto;
 	-webkit-filter: blur(5px);
 	z-index: 0;
-}
-.header div{
+}*/
+
+/*.header div{
 	color: #00;
 	font-family: 'Exo', sans-serif;
 	font-size: 25px;
 	font-weight: 200;
+}*/
+
+.mainPanel{
+	position: relative;
+	z-index: : 999;
+}
+
+.panel-heading{
+	
+	font-family: Arial;
+	font-size: 1.5vw;
+	font-weight: bold;
+	text-align: center;
+
+}
+
+input.input_text_box_small{
+
+	top: 0px;
+    border: 1px solid #ccc;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
+    font-size: 1vw;
+    padding: 4px 7px;
+    outline: 0;
+    -webkit-appearance: none;
+    display: inline-block;
+    width: 15vw;
+    text-align: left;
+}
+
+label{
+    display: inline-block;
+    clear: left;
+    width: 250px;
+    text-align: right;
+    size: .8vw;
+}
+
+button {
+	background-color:#ed8223;
+	color:#fff;
+	font-family:'Helvetica Neue',sans-serif;
+	font-size:2vw;
+	line-height:30px;
+	border-radius:20px;
+	-webkit-border-radius:20px;
+	-moz-border-radius:20px;
+	border:2px;
+	text-shadow:#C17C3A 0 -1px 0;
+	width:120px;
+	height:32px
+} 
+
+span{
+
+	vertical-align: middle;
+
 }
