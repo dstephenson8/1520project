@@ -93,9 +93,10 @@ class RegisterHandler(webapp2.RequestHandler):
 
     # if length of errors is zero then form is valid otherwise there are errors
     if len(errors)>0:
-      for error in errors:
-        self.response.write(error+" <br>")
+      # for error in errors:
+      #   self.response.write(error+" <br>")
       self.response.write('<a href="/">Go back</a>')
+      
       
     # if no errors in form
     else:

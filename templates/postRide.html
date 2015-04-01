@@ -22,7 +22,11 @@
         <script src="../static/bootstrap/js/bootstrap.min.js"></script>
 
         <!-- Created style sheet -->
-        <link rel="stylesheet" media="screen, print, handheld" href="../css/postRides_CSS.css">
+        <link rel="stylesheet" media="screen, print, handheld" href="../css/postRides_CSS.css
+        ">
+
+        <!-- Form validation -->
+        <script src="../static/parsley.min.js"></script>
 
         <title>Rider Sharer</title>
     </head>
@@ -47,71 +51,64 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content">
+                    
+                <!-- Trip Infomation tab -->
+                <div class="tab-pane active" id="tripInfo">
 
-                    <!-- Trip Infomation tab -->
-                    <div class="tab-pane active" id="tripInfo">
-                        <br>
-                        <form method="post" action="/saveRide">
+                    <br>
+                    <form method="post" action="/saveRide" data-parsley-validate>
+
                         <input type="hidden" value={{month}} name = 'month' id='month'>
                         <input type="hidden" value={{day}} name = 'day' id='day'>
                         <input type="hidden" value={{year}} name = 'year' id='year'>
 
-                        <div class="info">
-                            <br><b>Departing From:</b><br><br>
-                            <label>Address:</label>  <input class = "input_text_box" type = "text" id="depart_address" name = "depart_address"><br><br>
-                            <label>City:</label>     <input class = "input_text_box" type = "text" id="depart_city" name = "depart_city"><br><br>
-                            <label>State:</label>    <input class = "input_text_box_small" type = "text" id="depart_state" name = "depart_state">
-                            <label>Zip:</label>      <input class = "input_text_box_small" type = "text" id="depart_zip" name = "depart_zip"><br><br>
-                            <label>Departure Time:</label>         <input class = "input_text_box_small" type = "text" id="depart_time" name = "depart_time"><br><br>
-                        </div>
-
-                        <div class="info">
-                            <br><br><b>Arriving To:</b><br><br>
-                            <label>Address:</label>  <input class = "input_text_box" type = "text" id="arrive_address" name = "arrive_address"><br><br>
-                            <label>City:</label>     <input class = "input_text_box" type = "text" id="arrive_city" name = "arrive_city"><br><br>
-                            <label>State:</label>    <input class = "input_text_box_small" type = "text" id="arrive_state" name = "arrive_state">
-                            <label>Zip:</label>      <input class = "input_text_box_small" type = "text" id="arrive_zip" name = "arrive_zip"><br><br><br>
-                        </div>
-                        <label>Please continue to the next tab.</label>
-                    </div>
-
-
-                        <!-- Contact Info Tab -->
-                        <!-- <div class="tab-pane" id="contactInfo">
-                            <br><br>
                             <div class="info">
-                                <label>First name:</label>    <input class = "input_text_box_small" type="text" name="fname">
-                                <label>Last name:</label>     <input class = "input_text_box_small" type="text" name="lname"><br><br>
-                                <label>Phone Number:</label>  <input class = "input_text_box" type="text" name="phonenunber"><br><br>
-                                <label>E-mail:</label>        <input class = "input_text_box" type="text" name="email"><br><br>
-                                <label>Prefered Contact Method:</label>
-                                <input class="check_box" type="checkbox" name="prefer_contact" value="Phone"> Phone
-                                <input class="check_box" type="checkbox" name="prefer_contact" value="Text"> Text
-                                <input class="check_box" type="checkbox" name="prefer_contact" value="Email"> Email<br><br><br>
+                                <br><b>Departing From:</b><br><br>
+                                
+                                <label>Address*:</label>  <input class = "input_text_box" type='text' id="depart_address" name = "depart_address" placeholder='Depart address' data-parsley-trigger="change" data-parsley-error-message='Please enter this trips departing address!' required><br>
+                                
+                                <label>City*:</label>     <input class = "input_text_box" type = "text" pattern="^[A-Za-z ]+$" id="depart_city" name = "depart_city" placeholder='Depart city' data-parsley-trigger="change" data-parsley-error-message='Please enter this trips departing city!' required><br>
+                                
+                                <label>State*:</label>    <input class = "input_text_box_small" type = "text" pattern="^[A-Za-z ]+$" id="depart_state" name = "depart_state" placeholder='Depart state' data-parsley-trigger="change" data-parsley-error-message='Please enter this trips departing zip state!' required>
+                                    
+                                <label>Zip*:</label>      <input class = "input_text_box_small" data-parsley-type="digits" id="depart_zip" name = "depart_zip" placeholder='Depart zip' data-parsley-trigger="change" data-parsley-error-message='Please enter this trips departing zip code!' minlength='4' maxlength='5' required>
+                                <br>
+                                
+                                <label>Departure Time*:</label>  <input class = "input_text_box_small" type='text' id="depart_time" name = "depart_time" placeholder='Depart time' data-parsley-trigger="change" data-parsley-error-message='Please enter this trips departing time!' required>
+                                <br><br>
                             </div>
-                            <label>Please continue to the next tab.</label>
 
-                        </div> -->
+                            <div class="info">
+                                <br><b>Arriving To:</b><br><br>
+                                <label>Address*:</label>  <input class = "input_text_box" type='text' id="arrive_address" name = "arrive_address" placeholder='Arrival address' data-parsley-trigger="change" data-parsley-error-message='Please enter this trips arrival address!' required>
+                                <br>
+                                <label>City*:</label>     <input class = "input_text_box" type = "text" id="arrive_city" name = "arrive_city" placeholder='Arrival city' data-parsley-trigger="change" data-parsley-error-message='Please enter this trips arrival city!' required>
+                                <br>
+                                <label>State*:</label>    <input class = "input_text_box_small" type = "text" id="arrive_state" name = "arrive_state" placeholder='Arrival State' data-parsley-trigger="change" data-parsley-error-message='Please enter this trips arrival state!' required>
+                                <label>Zip*:</label>      <input class = "input_text_box_small" data-parsley-type="digits" id="arrive_zip" name = "arrive_zip" placeholder='Arrival zip' data-parsley-trigger="change" data-parsley-error-message='Please enter this trips arrival zip code!' minlength='4' maxlength='5' required>
+                                <br><br>
+                            </div>
+
+                            <label>Please continue to the next tab.</label>
+                        </div>
 
                         <!-- Car and Cost Info tab -->
-                    <div class="tab-pane" id="carInfo">
-                        <br><br>
-                        <div class="info">
-                            <label>Model:</label>                     <input class = "input_text_box_small" type="text" id="car_model" name="car_model"><br><br>
-                            <label>Year:</label>                      <input class = "input_text_box_small" type="text" id="car_year" name="car_year"><br><br>
-                            <label>Available Seats:</label> <input class = "input_text_box_small" type = "number" id="numSeats" name = "numSeats"><br><br>
+                        <div class="tab-pane" id="carInfo">
+                            <br><br>
+                            <div class="info">
+                                <label>Model:</label>                     <input class = "input_text_box_small" type="text" id="car_model" name="car_model" placeholder='Car model'>
+                                <br><br>
+                                <label>Year:</label>                      <input class = "input_text_box_small" data-parsley-type="digits" id="car_year" name="car_year" placeholder='Car year'>
+                                <br><br>
+                                <label>Available Seats*:</label> <input id='seats' class = "input_text_box_small" data-parsley-type="digits" id="numSeats" name = "numSeats" placeholder='Number of available seats' data-parsley-trigger="change" data-parsley-error-message='Please enter the number of available seats on this trip!' minlength='2' maxlength='2' required>
+                                <br><br>
+                            </div>
+
+                            <div class="info">
+                                <label>Message for other riders:</label><br><br><textarea rows="8"  id="message" cols="100" name="message" placeholder='Message' data-parsley-maxlength="200"></textarea>
+                                <br><br><input id="submit" type="submit" value="Post Ride">
+                            </div>
                         </div>
-                        <!-- <div class="info">
-                            Do you want to do split the total cost or charge a flat cost?
-                            <input class="check_box" type="checkbox" name="cost_type" value="split"> Split Cost
-                            <input class="check_box" type="checkbox" name="cost_type" value="flat"> Flat Cost<br><br>
-                        </div> -->
-                        <div class="info">
-                            <label>Message for other riders:</label><br><br><textarea rows="8"  id="message" cols="100" name="message"></textarea>
-                            <!-- <br><br><input id="submit" type="submit" value="Post Ride" onclick="sendPost();"> -->
-                            <br><br><input id="submit" type="submit" value="Post Ride">
-                        </div>
-                    </div>
 
                     </form>
                 </div>

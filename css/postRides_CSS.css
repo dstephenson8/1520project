@@ -1,6 +1,5 @@
 .backgroundImg{
 	position: fixed;
-	/*display: block;*/
 	background-image: url("../static/images/toonMap.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -17,13 +16,6 @@
 	font-size: 1.5vw;
 	font-weight: bold;
 	text-align: center;
-
-}
-
-/*CANNOT GET THE LEFT JUSTIFICATION TO WORK*/
-.tab-content{
-	font-size: 1vw;
-	text-align: left;
 
 }
 
@@ -46,6 +38,11 @@ input.input_text_box{
     text-align: left;
 }
 
+textarea{
+    display: block;
+    margin-left: 12vw;
+}
+
 input.input_text_box_small{
 
 	top: 0px;
@@ -63,8 +60,6 @@ input.input_text_box_small{
     display: inline-block;
     width: 15vw;
     text-align: left;
-
-
 }
 
 .info label{
@@ -75,9 +70,33 @@ input.input_text_box_small{
     font-weight: normal;
 }
 
-input.check_box{
-
-
-
+input.parsley-success{
+    color: #468847 !important;
+    background-color: #DFF0D8 !important;
+    border: 1px solid #D6E9C6 !important;
+}
+input.parsley-error{
+    color: #B94A48 !important;
+    background-color: #F2DEDE !important;
+    border: 1px solid #EED3D7 !important;
+}
+input.parsley-warning{
+    color: #468847 !important;
+    background-color: #DFF0D8 !important;
+    border: 1px solid #D6E9C6 !important;
+}
+ ul.parsley-errors-list{
+    font-size: .7vw;
+    padding-left: 18em;
+    list-style-type:none;
+}
+ 
+ul.parsley-error-list li{
+    line-height: 11px;
+    text-align: right;
+    padding: 2px;
 }
 
+#event_table ul.parsley-errors-list {
+    display:inline-block;
+}
