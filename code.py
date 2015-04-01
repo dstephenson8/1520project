@@ -8,6 +8,7 @@ from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 from array import array #allow us to use arrays
 from google.appengine.api import mail
+from google.appengine.ext import ndb
 
 ###############################################################################
 # We'll just use this convenience function to retrieve and render a template.
@@ -15,6 +16,106 @@ def render_template(handler, templatename, templatevalues):
   path = os.path.join(os.path.dirname(__file__), 'templates/' + templatename)
   html = template.render(path, templatevalues)
   handler.response.out.write(html)
+
+# NEW STUFF
+# UserInfo class used to keep additional info about a user that User model of ap[engine doesn't hold 
+class UserInfo(ndb.Model):
+  # user id of the corresponding instance of User in users api
+  uid = ndb.StringProperty(indexed=True)
+  # firstname of user
+  firstname = ndb.StringProperty(indexed=False)
+  # lastname of user
+  lastname = ndb.StringProperty(indexed=False)
+  # emails is a list because the repeated attribute is equal to True
+  phonenumber = ndb.StringProperty(indexed = False)
+  email = ndb.StringProperty(indexed=False)
+
+# main handler used to display the index page. It shows either user info 
+# if user is loggedin with google and has done the customize site registration
+# other wise it will first forward usr to google's login page and next to registration page
+class MainHandler(webapp2.RequestHandler):
+
+  def get(self):
+    user = users.get_current_user()
+    # checking if user is logged in to google users api
+    if user:
+      # getting the instance of user info from our own model
+      ui = self.getUserInfo(user)
+      # checking if exsits or not. If not it means usr is has not done our customize registration
+      if ui:
+        self.redirect("/calendar")
+        # show the usr his/her info since login and registration is done successfully
+# >>>>>>>>>>>>THIS IS WHERE IT SHOULD REDIRECT TO THE MAIN PAGE <<<<<<<<<<
+        # show user its emails. its a list don't forget (due to reapeted=True)
+        # path = os.path.join(os.path.dirname(__file__),"code.py")
+      else:
+        # user is logged in t google but not registered
+        render_template(self, 'register.html', {})
+        # render the registration template for user
+        # html = template.render(path,{})
+        # self.response.write(html)      
+    else:
+      # user is not logged in to google so redirect him to google's login page
+      self.redirect(users.create_login_url("/calendar"))
+
+  # get instance of user info and check if exists
+  def getUserInfo(self,user):
+    res = UserInfo.query(UserInfo.uid == user.user_id()).fetch()
+    if res:
+      return res[0]
+    else:
+      return None
+
+
+# register handler handles post request for registration form
+class RegisterHandler(webapp2.RequestHandler):
+  #   post function for post method
+  def post(self):
+    # getting values from request
+    firstname = self.request.get("firstname")
+    lastname = self.request.get("lastname")
+    phonenumber = self.request.get("phonenumber")
+    # emails is a list so uses get_all
+    email = self.request.get("email")
+
+    # errors is going to contain list of all errors from this form. If is empty it means the form is vbalid
+    errors=[]
+    # checking if firstanem and lastname exists
+    if firstname is None or firstname=="":
+      errors+=["First Name missing"]
+
+    if lastname is None or lastname=="":
+      errors+=["First Name missing"]
+
+    # checking emails. Note that emails can be empty and in our form its fine,
+     # but if not empty they should be in proper format
+    
+
+    # if length of errors is zero then form is valid otherwise there are errors
+    if len(errors)>0:
+      for error in errors:
+        self.response.write(error+" <br>")
+      self.response.write('<a href="/">Go back</a>')
+      
+    # if no errors in form
+    else:
+      # save an instance of UserInfo with proper values for its variables
+      user = users.get_current_user()
+      ui = UserInfo(firstname=firstname,lastname=lastname, phonenumber=phonenumber, email=email,uid=user.user_id())
+      # reading all emails form lis
+      # finally saving to datastore. If not called nothing will be saved
+      ui.put()
+
+      self.redirect("/calendar")
+
+
+
+
+
+# New Stuff
+
+
+
 
 
 ###############################################################################
@@ -214,10 +315,17 @@ class listRidesHandler(webapp2.RequestHandler):
 ###############################################################################
 app = webapp2.WSGIApplication([
   ('/', MainPage),
+  ("/registerpage",MainHandler),
+  ("/register",RegisterHandler),
   ('/calendar', calendarHandler),
   ('/list_rides', listRidesHandler),
   ('/postRide', PostRideHandler),
+<<<<<<< HEAD
   ('/saveRide', SaveRideHandler)
+=======
+  ('/saveRide', SaveRideHandler),
+
+>>>>>>> f9461ee4f048d60bf4eca24ed39e3b3c2c3cd4c8
 ], debug=True)
 
 
