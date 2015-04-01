@@ -321,12 +321,7 @@ app = webapp2.WSGIApplication([
   ('/calendar', calendarHandler),
   ('/list_rides', listRidesHandler),
   ('/postRide', PostRideHandler),
-<<<<<<< HEAD
   ('/saveRide', SaveRideHandler)
-=======
-  ('/saveRide', SaveRideHandler),
-
->>>>>>> f9461ee4f048d60bf4eca24ed39e3b3c2c3cd4c8
 ], debug=True)
 
 
