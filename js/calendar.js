@@ -102,8 +102,11 @@ function calendar(curr_month, curr_year, day_num, month_num, year_num, depart_ci
 			{	
 				numdays++;
 
-				if((7*weeks)+days-(the_first) == today && today_month == month && year == d_copy.getFullYear()) //is this day today?
-				{ 
+			thisDay = (7*weeks)+days-(the_first_copy);
+
+				if( thisDay == today && today_month == month && year == d_copy.getFullYear()) //is this day today?
+				{
+
 					if(weeks == 0){ //if it is still the first week, don't subtract when the day the 1st started
 						
 						curr_day = (7*weeks)+days-num;
