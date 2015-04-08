@@ -19,6 +19,11 @@
 
 }
 
+/*Change the white to any color */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #DFF0D8 inset !important;
+}
+
 input.input_text_box{
 
 	top: 0px;
@@ -26,9 +31,6 @@ input.input_text_box{
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    -moz-box-shadow: 2px 2px 3px #666;
-    -webkit-box-shadow: 2px 2px 3px #666;
-    box-shadow: 2px 2px 3px #666;
     font-size: 1vw;
     padding: 4px 7px;
     outline: 0;
@@ -50,9 +52,6 @@ input.input_text_box_small{
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    -moz-box-shadow: 2px 2px 3px #666;
-    -webkit-box-shadow: 2px 2px 3px #666;
-    box-shadow: 2px 2px 3px #666;
     font-size: 1vw;
     padding: 4px 7px;
     outline: 0;
@@ -71,19 +70,14 @@ input.input_text_box_small{
 }
 
 input.parsley-success{
-    color: #468847 !important;
+    color: #000000 !important;
     background-color: #DFF0D8 !important;
     border: 1px solid #D6E9C6 !important;
 }
 input.parsley-error{
-    color: #B94A48 !important;
+    color: #000000 !important;
     background-color: #F2DEDE !important;
     border: 1px solid #EED3D7 !important;
-}
-input.parsley-warning{
-    color: #468847 !important;
-    background-color: #DFF0D8 !important;
-    border: 1px solid #D6E9C6 !important;
 }
  ul.parsley-errors-list{
     font-size: .7vw;
