@@ -1,9 +1,10 @@
 body{
 	position: absolute;
 	display: block;
-	background-image: url("../static/images/toonMap.jpg");
+	/*background-image: url("../static/images/toonMap.jpg");*/
 	background-size: cover;
 	background-repeat: no-repeat;
+	background-color: #3300CC
 	height: 100%;
 	width: 100%;
 	z-index: 1;

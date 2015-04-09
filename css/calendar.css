@@ -14,16 +14,17 @@
 /* Controls the background image */
 body{
 	position: absolute;
-	top: 1vw;
+	top: 0vw;
 	left: -20px;
 	right: -40px;
 	bottom: -40px;
 	width: auto;
 	height: auto;
-	background-image: url("../static/images/toonMap.jpg");
+	/*background-image: url("../static/images/toonMap.jpg");*/
 	background-size: cover;
 	background-attachment: fixed;
 	overflow: hidden;
+	background-color: #3300CC
 }
 
 
