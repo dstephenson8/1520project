@@ -4,7 +4,7 @@
 {% block content %}
 
 {% if user %}
-<div class="logout">Hello, {{user.nickname}}!  Click <a href="{{logout}}">here</a> to log out.</div>
+
 {% endif %}
 
 <html>
@@ -32,12 +32,11 @@
 			<input type="hidden" value={{month}} name = 'month'>
 			<input type="hidden" value={{day}} name = 'day'>
 			<input type="hidden" value={{year}} name = 'year'>
+ 
 			<input type="submit" class='button' value="Post a new Ride">
-		</form>
+		</form>	
+		
 
-		<form action="/calendar?month="{{month}}"">
-		    <input type="submit" class='button' value="Return to Calendar">
-		</form>
 
 		<br>
 		<div class="panel panel-default col-md-10 col-md-offset-1" id='mainPanel'>

@@ -232,6 +232,8 @@ class calendarHandler(webapp2.RequestHandler):
     def get(self):
         # Checks for active Google account session
         user = users.get_current_user()
+        logout = users.create_logout_url('/')
+
 
         if user:
             query = MessagePost.all()
@@ -267,6 +269,7 @@ class calendarHandler(webapp2.RequestHandler):
               'depart_city': json.dumps(depart_city),
               'depart_time': json.dumps(depart_time),
               'arrive_city': json.dumps(arrive_city),
+              'logout': logout,
             }
 
             render_template(self, 'calendar.html', template_values)
