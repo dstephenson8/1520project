@@ -111,14 +111,6 @@ class RegisterHandler(webapp2.RequestHandler):
 
 
 
-
-
-# New Stuff
-
-
-
-
-
 ###############################################################################
 class MessagePost(db.Model):
 
