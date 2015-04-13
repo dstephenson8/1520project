@@ -5,7 +5,7 @@ body{
 
 .backgroundImg{
 	position: fixed;
-	/*background-image: url("../static/images/toonMap.jpg");*/
+	background-image: url("../static/images/toonMap.jpg");
 	/*background-color: #3300CC;*/
     background-size: cover;
 	background-repeat: no-repeat;

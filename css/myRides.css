@@ -9,7 +9,7 @@ body{
 	background-image: url("../static/images/toonMap.jpg");
 	background-size: cover;
 	background-attachment: fixed;
-	overflow: hidden;
+	overflow: scroll;
 	/*background-color: #3300CC*/
 }
 
@@ -44,8 +44,9 @@ body{
 
 .message{
 
-	font-size: 1vw;
+	font-size: 0.85vw;
 	position: relative;
+	padding-left: 5em;
 }
 
 .mainPanel{
@@ -54,10 +55,7 @@ body{
 }
 
 .info_to_tab{
-
 	padding-left: 5em;
-
-
 }
 
 html{

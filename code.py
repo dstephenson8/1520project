@@ -34,6 +34,8 @@ class UserInfo(ndb.Model):
   # emails is a list because the repeated attribute is equal to True
   phonenumber = ndb.StringProperty(indexed = False)
   email = ndb.StringProperty(indexed=False)
+  # postedRide = ndb.StringProperty(indexed=True)
+  reservedSeated = ndb.StringProperty(indexed=True)
 
 
 
@@ -98,6 +100,12 @@ class RegisterHandler(webapp2.RequestHandler):
     if lastname is None or lastname=="":
       errors+=["First Name missing"]
 
+    if phonenumber is None:
+      errors+=["phone number is missing"]
+
+    if email is None or email=="":
+      errors+=["email is missing"]
+
     # checking emails. Note that emails can be empty and in our form its fine,
      # but if not empty they should be in proper format
     
@@ -146,6 +154,7 @@ class MessagePost(db.Model):
   month = db.StringProperty()
   year = db.StringProperty()
   nickname = db.StringProperty()
+  uid = db.StringProperty()
 
   # we will use this method to automatically output a formatted time string.
   def formatted_time(self):
@@ -179,6 +188,7 @@ class SaveRideHandler(webapp2.RequestHandler):
       post.user = user.email()
       post.time = int(time.time())
       post.nickname = user.nickname()
+      post.uid = user.user_id()
       post.put()
 
       day = self.request.get('day')
@@ -329,7 +339,42 @@ class listRidesHandler(webapp2.RequestHandler):
 ###############################################################################
 class myRidesHandler(webapp2.RequestHandler):
   def get(self):
-    render_template(self, "myRides.html", {})
+
+    # Checks for active Google account session
+    user = users.get_current_user()
+    logout = users.create_logout_url('/')
+    query = MessagePost.all()
+    query.order('-time')
+
+    if user:
+
+      #THIS SECTION IS TO GET A POST THE USER HAS POSTED
+    
+      uid = user.user_id() #get users id
+      postedRide = False # used to determine if this user has posted a ride
+      posts = list()
+
+      for post in query.run():
+        if post.uid == uid:
+          postedRide = True
+          posts.append(post)
+
+
+
+
+      #THIS SECITON IS TO GET THE POSTS THE USER HAS RESERVED
+
+
+      #FILL IN THE TEMPLATE VALUES
+      template_values = {
+        'postedRide': postedRide,
+        'posts': posts,
+        'logout': logout,
+      }
+      render_template(self, "myRides.html", template_values)
+
+    else:
+      self.redirect(users.create_login_url(self.request.uri))
 
 ###############################################################################
 # We have to make sure we map our HTTP request pages to the actual

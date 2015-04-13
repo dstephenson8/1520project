@@ -35,12 +35,57 @@
 
 				<label>Rides you have posted:</label><br><br>
 
-				{% if user %}
+				{% if  postedRide %}
+
+					{% for post in posts %}
+
+						<li class="list-group-item list-group-item-info">
+
+						On <span class="time">{{post.formatted_time}}</span>, you said:<br><br>
+						<div class="message">
+
+							Departure: 
+								<div class = 'info_to_tab'>
+									Address: {{post.depart_address}} <br>
+									City: {{post.depart_city}} <br>
+									State: {{post.depart_state}} <br>
+					             	Zip: {{post.depart_zip}} <br>
+								</div><br>
+
+							Arrival:
+								<div class = 'info_to_tab'>
+									Address: {{post.arrive_address}} <br>
+									City: {{post.arrive_city}} <br>
+									State: {{post.arrive_state}} <br>
+					             	Zip: {{post.arrive_zip}} <br> 
+								</div><br>
+							Car Information:
+								<div class = 'info_to_tab'>
+									Model: {{post.car_model}}<br>
+									Year: {{post.car_year}}
+								</div><br>
+
+							Number of available seats: <span class="subject" id="numSeats">{{post.numSeats}}</span><br>
+							<br><br>
+
+							Time of departure: {{post.depart_time}}<br>
+							<!--<a href="/user_detail?user={{post.user}}">This is a link</a>-->
+							Your Message: {{post.message}}
+						</div>
+						</li>
+
+						<br>
+
+					{% endfor %}
+
+				{% else %}
+
+					<div class="info_to_tab">You have not posted any rides</div>
 
 				{% endif %}
 
 
-				<label>Seats you have reserved:</label>
+				<br><label>Seats you have reserved:</label>
 
 				{% if user %}
 
