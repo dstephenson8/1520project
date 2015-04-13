@@ -1,29 +1,22 @@
-// $(document).ready(function(){
+function reserveSeat(seats){
+    var val = seats.value;
+    if(val==="")
+        return;
 
-var button=element.find("#seatSpan");
+    var request = new XMLHttpRequest();
+    request.onreadystatechange=function(){
+        if(request.status=200 && request.readyState==4){
+            //change button to text and make bold and green 
+            var button=seats.parentNode;
+            $(button).html('Seat Reserved');
+            $(button).css('color', '#00FF00');
+            $(button).css('fontWeight', 'bold');
 
-    function reserveSeat(seats){
-            //make reservation text green and bold and change button to text
-            $(button, this).html('Seat Reserved');
-            $("#seatSpan", this).css('color', '#00FF00');
-            $("#seatSpan", this).css('fontWeight', 'bold');
-
-
-            //when reserve os clicked, reserve the seat
-            // button="";
-
-            // button='<div onclick="reserve(this)" class="reserved-tag"></div>';
-
-
-
-            // alert(seats);
-            
-            // //decrement deat number in vehicle
-            // var element = seats;
-            // elementNumber = parseFloat(element.innerHTML);
-            // elementNumber-1;
-            // element.InnerHTML = elementNumber;
         }
+    };
 
+    request.open("POST","/listing_of_rides",true);
+    request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    request.send('seats='+val);
 
-// });
+}
