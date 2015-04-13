@@ -6,19 +6,24 @@ import json
 from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
-from array import array #allow us to use arrays
+from array import array 
 from google.appengine.api import mail
 from google.appengine.ext import ndb
 
+
 ###############################################################################
 # We'll just use this convenience function to retrieve and render a template.
+###############################################################################
 def render_template(handler, templatename, templatevalues):
   path = os.path.join(os.path.dirname(__file__), 'templates/' + templatename)
   html = template.render(path, templatevalues)
   handler.response.out.write(html)
 
-# NEW STUFF
-# UserInfo class used to keep additional info about a user that User model of ap[engine doesn't hold 
+
+###############################################################################
+# This is our user object. It will store the users names, id, phone, email and
+# the rides the user has requested or posted
+###############################################################################
 class UserInfo(ndb.Model):
   # user id of the corresponding instance of User in users api
   uid = ndb.StringProperty(indexed=True)
@@ -29,10 +34,16 @@ class UserInfo(ndb.Model):
   # emails is a list because the repeated attribute is equal to True
   phonenumber = ndb.StringProperty(indexed = False)
   email = ndb.StringProperty(indexed=False)
+  # postedRide = ndb.StringProperty(indexed=True)
+  reservedSeated = ndb.StringProperty(indexed=True)
 
-# main handler used to display the index page. It shows either user info 
-# if user is loggedin with google and has done the customize site registration
-# other wise it will first forward usr to google's login page and next to registration page
+
+
+###############################################################################
+# This handler redirects the user to login with google, then it sends them to the
+# registration page is the user has not registered on this site before, otherwise 
+# it sends them to the calendar
+###############################################################################
 class MainHandler(webapp2.RequestHandler):
 
   def get(self):
@@ -67,7 +78,9 @@ class MainHandler(webapp2.RequestHandler):
       return None
 
 
-# register handler handles post request for registration form
+###############################################################################
+# This is our register handler which will save the users registration data
+###############################################################################
 class RegisterHandler(webapp2.RequestHandler):
   #   post function for post method
   def post(self):
@@ -86,6 +99,12 @@ class RegisterHandler(webapp2.RequestHandler):
 
     if lastname is None or lastname=="":
       errors+=["First Name missing"]
+
+    if phonenumber is None:
+      errors+=["phone number is missing"]
+
+    if email is None or email=="":
+      errors+=["email is missing"]
 
     # checking emails. Note that emails can be empty and in our form its fine,
      # but if not empty they should be in proper format
@@ -111,14 +130,8 @@ class RegisterHandler(webapp2.RequestHandler):
 
 
 
-
-
-# New Stuff
-
-
-
-
-
+###############################################################################
+# This is our meesage post object which stores all the data needed for a ride
 ###############################################################################
 class MessagePost(db.Model):
 
@@ -141,6 +154,7 @@ class MessagePost(db.Model):
   month = db.StringProperty()
   year = db.StringProperty()
   nickname = db.StringProperty()
+  uid = db.StringProperty()
 
   # we will use this method to automatically output a formatted time string.
   def formatted_time(self):
@@ -148,7 +162,7 @@ class MessagePost(db.Model):
 
 
 ###############################################################################
-# This will handle the form submission, then redirect the user to the list rides page
+# This is our save ride handler that handles when a user posts a ride
 ###############################################################################
 class SaveRideHandler(webapp2.RequestHandler):
   def post(self):
@@ -174,6 +188,7 @@ class SaveRideHandler(webapp2.RequestHandler):
       post.user = user.email()
       post.time = int(time.time())
       post.nickname = user.nickname()
+      post.uid = user.user_id()
       post.put()
 
       day = self.request.get('day')
@@ -196,7 +211,7 @@ class SaveRideHandler(webapp2.RequestHandler):
 
 
 ###############################################################################
-# This handler will be used to set up the post form at post.html.
+# This handler will be used to set up the post form at postRide.html.
 ###############################################################################
 class PostRideHandler(webapp2.RequestHandler):
   def get(self):
@@ -219,19 +234,23 @@ class PostRideHandler(webapp2.RequestHandler):
 
 
 ###############################################################################
-# This is our main page handler.  It will show the MessagePost objects in
-# the index.html page.
+# This is our main page handler.  It will show the login screen
 ###############################################################################
-
-
 class MainPage(webapp2.RequestHandler):
   def get(self):
     render_template(self, 'MainPage.html',{})
 
+
+
+###############################################################################
+# displays the calendar
+###############################################################################
 class calendarHandler(webapp2.RequestHandler):
     def get(self):
         # Checks for active Google account session
         user = users.get_current_user()
+        logout = users.create_logout_url('/')
+
 
         if user:
             query = MessagePost.all()
@@ -267,6 +286,7 @@ class calendarHandler(webapp2.RequestHandler):
               'depart_city': json.dumps(depart_city),
               'depart_time': json.dumps(depart_time),
               'arrive_city': json.dumps(arrive_city),
+              'logout': logout,
             }
 
             render_template(self, 'calendar.html', template_values)
@@ -274,6 +294,9 @@ class calendarHandler(webapp2.RequestHandler):
             self.redirect(users.create_login_url(self.request.uri))
 
 
+###############################################################################
+# Lists the rides for the date the user has selected
+###############################################################################
 class listRidesHandler(webapp2.RequestHandler):
   def get(self):
     user = users.get_current_user()
@@ -307,6 +330,52 @@ class listRidesHandler(webapp2.RequestHandler):
     }
     render_template(self, 'listing_Of_Rides.html', template_values)
 
+
+
+
+###############################################################################
+# This is our myRides handler which shows the users the rides they have posts or
+# reserved
+###############################################################################
+class myRidesHandler(webapp2.RequestHandler):
+  def get(self):
+
+    # Checks for active Google account session
+    user = users.get_current_user()
+    logout = users.create_logout_url('/')
+    query = MessagePost.all()
+    query.order('-time')
+
+    if user:
+
+      #THIS SECTION IS TO GET A POST THE USER HAS POSTED
+    
+      uid = user.user_id() #get users id
+      postedRide = False # used to determine if this user has posted a ride
+      posts = list()
+
+      for post in query.run():
+        if post.uid == uid:
+          postedRide = True
+          posts.append(post)
+
+
+
+
+      #THIS SECITON IS TO GET THE POSTS THE USER HAS RESERVED
+
+
+      #FILL IN THE TEMPLATE VALUES
+      template_values = {
+        'postedRide': postedRide,
+        'posts': posts,
+        'logout': logout,
+      }
+      render_template(self, "myRides.html", template_values)
+
+    else:
+      self.redirect(users.create_login_url(self.request.uri))
+
 ###############################################################################
 # We have to make sure we map our HTTP request pages to the actual
 # RequestHandler objects here.
@@ -321,7 +390,8 @@ app = webapp2.WSGIApplication([
   ('/calendar', calendarHandler),
   ('/list_rides', listRidesHandler),
   ('/postRide', PostRideHandler),
-  ('/saveRide', SaveRideHandler)
+  ('/saveRide', SaveRideHandler),
+  ('/myRides', myRidesHandler)
 ], debug=True)
 
 
