@@ -376,6 +376,48 @@ class myRidesHandler(webapp2.RequestHandler):
     else:
       self.redirect(users.create_login_url(self.request.uri))
 
+
+###############################################################################
+# This is our updateRides handler which update the number of seats avaliable for
+# a ride and also update the reserved seat for the user
+###############################################################################
+class updateRideHandler(webapp2.RequestHandler):
+  def post(self):
+    # Checks for active Google account session
+    user = users.get_current_user()
+    logout = users.create_logout_url('/')
+    query = MessagePost.all()
+    query.order('-time')
+
+    if user:
+
+      #THIS SECTION IS TO UPDATE THE NUMBER OF SEATS AVALIBLE FOR A RIDE
+    
+      uid = user.user_id() #get users id
+      postedRide = False # used to determine if this user has posted a ride
+      posts = list()
+
+      for post in query.run():
+        if post.uid == uid:
+          postedRide = True
+          posts.append(post)
+
+      #THIS SECITON IS TO UPDATE THE RESERVED SEAT FOR THE USER
+
+
+      #FILL IN THE TEMPLATE VALUES
+      template_values = {
+        'postedRide': postedRide,
+        'posts': posts,
+        'logout': logout,
+      }
+      render_template(self, "myRides.html", template_values)
+
+    else:
+      self.redirect(users.create_login_url(self.request.uri))
+
+
+
 ###############################################################################
 # We have to make sure we map our HTTP request pages to the actual
 # RequestHandler objects here.
@@ -391,7 +433,8 @@ app = webapp2.WSGIApplication([
   ('/list_rides', listRidesHandler),
   ('/postRide', PostRideHandler),
   ('/saveRide', SaveRideHandler),
-  ('/myRides', myRidesHandler)
+  ('/myRides', myRidesHandler),
+  ('/updateRides', updateRideHandler)
 ], debug=True)
 
 
