@@ -1,4 +1,4 @@
-function reserveSeat(seats){
+function reserveSeat(seats, numSeats){
     var val = seats.value;
     if(val==="")
         return;
@@ -11,12 +11,13 @@ function reserveSeat(seats){
             $(button).html('Seat Reserved');
             $(button).css('color', '#00FF00');
             $(button).css('fontWeight', 'bold');
+            // alert(numSeats);
 
         }
     };
 
     request.open("POST","/listing_of_rides",true);
     request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    request.send('seats='+val);
+    request.send('seats='+numSeats--);
 
 }
