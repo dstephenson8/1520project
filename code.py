@@ -359,9 +359,6 @@ class myRidesHandler(webapp2.RequestHandler):
           postedRide = True
           posts.append(post)
 
-
-
-
       #THIS SECITON IS TO GET THE POSTS THE USER HAS RESERVED
 
 
@@ -392,26 +389,17 @@ class updateRideHandler(webapp2.RequestHandler):
     if user:
 
       #THIS SECTION IS TO UPDATE THE NUMBER OF SEATS AVALIBLE FOR A RIDE
-    
-      uid = user.user_id() #get users id
-      postedRide = False # used to determine if this user has posted a ride
-      posts = list()
-
+      
+      #get post uid, search for posts with that uid and change their numSeats
       for post in query.run():
         if post.uid == uid:
-          postedRide = True
-          posts.append(post)
+          post.numSeats = post.numSeats
+          post.put()
+    
 
       #THIS SECITON IS TO UPDATE THE RESERVED SEAT FOR THE USER
 
 
-      #FILL IN THE TEMPLATE VALUES
-      template_values = {
-        'postedRide': postedRide,
-        'posts': posts,
-        'logout': logout,
-      }
-      render_template(self, "myRides.html", template_values)
 
     else:
       self.redirect(users.create_login_url(self.request.uri))
