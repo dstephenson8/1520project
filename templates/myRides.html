@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% block content %}
+
+<html>
+	<head>
+		<script src="../static/bootstrap/js/jquery-2.1.3.js"></script>
+
+	 	<!-- Latest compiled and minified CSS -->
+	    <link rel="stylesheet" media="screen, print, handheld" href="../static/bootstrap/css/bootstrap.min.css">
+
+	    <!-- Optional theme -->
+	    <link rel="stylesheet" media="screen, print, handheld" href="../static/bootstrap/css/bootstrap-theme.min.css">
+
+	    <!-- Latest compiled and minified JavaScript -->
+	    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+
+	    <!-- Created Style sheet -->
+	    <link rel="stylesheet" media="screen, print, handheld" href="../css/listing_Of_Rides_CSS.css">
+
+	    <title>Ride Sharer</title>
+	</head>
+
+	<body>
+		<br>
+		
+		<br>
+		<div class="panel panel-default col-md-10 col-md-offset-1" id='mainPanel'>
+
+			<div class="panel-heading">My Rides</div>
+			<div class="panel-body">
+
+				<br><br>
+
+				<label>Rides you have posted:</label><br><br>
+
+				{% if user %}
+
+				{% endif %}
+
+
+				<label>Seats you have reserved:</label>
+
+				{% if user %}
+
+				{% endif %}
+
+			</div> <!-- close panel body -->
+		</div><!--  Close panel -->
+	</body>
+</html>
+{% endblock %}
