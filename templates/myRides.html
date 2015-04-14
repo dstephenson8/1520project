@@ -17,7 +17,7 @@
 	    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
 
 	    <!-- Created Style sheet -->
-	    <link rel="stylesheet" media="screen, print, handheld" href="../css/listing_Of_Rides_CSS.css">
+	    <link rel="stylesheet" media="screen, print, handheld" href="../css/myRides.css">
 
 	    <title>Ride Sharer</title>
 	</head>
@@ -41,7 +41,7 @@
 
 						<li class="list-group-item list-group-item-info">
 
-						On <span class="time">{{post.formatted_time}}</span>, you said:<br><br>
+						<span class="time">On {{post.formatted_time}}, you said:</span><br><br>
 						<div class="message">
 
 							Departure: 
@@ -66,7 +66,6 @@
 								</div><br>
 
 							Number of available seats: <span class="subject" id="numSeats">{{post.numSeats}}</span><br>
-							<br><br>
 
 							Time of departure: {{post.depart_time}}<br>
 							<!--<a href="/user_detail?user={{post.user}}">This is a link</a>-->
@@ -79,16 +78,54 @@
 					{% endfor %}
 
 				{% else %}
-
-					<div class="info_to_tab">You have not posted any rides</div>
-
+					<div class="info_to_tab">None</div>
 				{% endif %}
 
 
-				<br><label>Seats you have reserved:</label>
+				<br><label>Seats you have reserved:</label><br><br>
 
-				{% if user %}
+				{% if  reserved %}
+					{% for ride in reservedRide %}
+						<li class="list-group-item list-group-item-info">
 
+						<span class="time">On {{ride.formatted_time}}, {{post.nickname}} said:</span><br><br>
+						<div class="message">
+
+							Departure: 
+								<div class = 'info_to_tab'>
+									Address: {{ride.depart_address}} <br>
+									City: {{ride.depart_city}} <br>
+									State: {{ride.depart_state}} <br>
+					             	Zip: {{ride.depart_zip}} <br>
+								</div><br>
+
+							Arrival:
+								<div class = 'info_to_tab'>
+									Address: {{ride.arrive_address}} <br>
+									City: {{ride.arrive_city}} <br>
+									State: {{ride.arrive_state}} <br>
+					             	Zip: {{ride.arrive_zip}} <br> 
+								</div><br>
+							Car Information:
+								<div class = 'info_to_tab'>
+									Model: {{ride.car_model}}<br>
+									Year: {{ride.car_year}}
+								</div><br>
+
+							Number of available seats: <span class="subject" id="numSeats">{{ride.numSeats}}</span><br>
+
+							Time of departure: {{ride.depart_time}}<br>
+							<!--<a href="/user_detail?user={{ride.user}}">This is a link</a>-->
+							Message from {{post.nickname}}: {{ride.message}}
+						</div>
+						</li>
+
+						<br>
+
+					{% endfor %}
+
+				{% else %}
+					<div class="info_to_tab">None</div>
 				{% endif %}
 
 			</div> <!-- close panel body -->

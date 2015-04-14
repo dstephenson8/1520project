@@ -35,7 +35,7 @@ class UserInfo(ndb.Model):
   phonenumber = ndb.StringProperty(indexed = False)
   email = ndb.StringProperty(indexed=False)
   # postedRide = ndb.StringProperty(indexed=True)
-  reservedSeated = ndb.StringProperty(indexed=True)
+  reservedSeat = ndb.StringProperty(indexed=True)
 
 
 
@@ -355,18 +355,40 @@ class myRidesHandler(webapp2.RequestHandler):
       posts = list()
 
       for post in query.run():
-        if post.uid == uid:
+        if(post.uid == uid and len(posts) < 1):
           postedRide = True
           posts.append(post)
 
-      #THIS SECITON IS TO GET THE POSTS THE USER HAS RESERVED
+      #THIS SECTION IS TO GET THE POSTS THE USER HAS RESERVED
+      reserved = False
 
+      #find the current user and figure out if they have a reserved seat
+      thisUserId = user.user_id()
+      listUsers = UserInfo.query()
+      for aUser in listUsers.fetch():
+        if thisUserId == aUser.uid:
+          reservedStr = aUser.reservedSeat
+          if reservedStr == None:
+            reserved = False
+          else:
+            reserved = True
 
+      reservedRide = list()
+
+      #find the ride the user has reserved
+      if reserved:
+        for post in query.run():
+          if(post.uid[0:15] == reservedStr[0:15] and len(reservedRide) < 1):
+            reservedRide.append(post)
+
+          
       #FILL IN THE TEMPLATE VALUES
       template_values = {
         'postedRide': postedRide,
         'posts': posts,
         'logout': logout,
+        'reserved': reserved,
+        'reservedRide': reservedRide,
       }
       render_template(self, "myRides.html", template_values)
 
@@ -386,20 +408,31 @@ class updateRideHandler(webapp2.RequestHandler):
     query = MessagePost.all()
     query.order('-time')
 
+    list = UserInfo.query()
+
+
+    thisUid = self.request.get('uid')
+    numSeats = self.request.get('numSeats')
+
     if user:
 
       #THIS SECTION IS TO UPDATE THE NUMBER OF SEATS AVALIBLE FOR A RIDE
       
-      #get post uid, search for posts with that uid and change their numSeats
+      #get post uid, search for posts with this uid and change their numSeats
       for post in query.run():
-        if post.uid == uid:
-          post.numSeats = post.numSeats
+        if post.uid == thisUid:
+          post.numSeats = numSeats
           post.put()
     
 
       #THIS SECITON IS TO UPDATE THE RESERVED SEAT FOR THE USER
 
+      thisUserId = user.user_id()
 
+      for aUser in list.fetch():
+        if thisUserId == aUser.uid:
+          aUser.reservedSeat = str(thisUid)
+          aUser.put()
 
     else:
       self.redirect(users.create_login_url(self.request.uri))

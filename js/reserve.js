@@ -12,15 +12,18 @@ function reserveSeat(myuid, seats, numSeats){
             $(button).html('Seat Reserved');
             $(button).css('color', '#00FF00');
             $(button).css('fontWeight', 'bold');
-            alert(numSeats);
             theseat.html(numSeats);
 
         }
     };
 
+    numSeats--;
+
+    paramString = 'uid='+myuid+'&numSeats='+numSeats;
+
+// alert(paramString);
+
     request.open("POST","/updateRides",true);
     request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    request.send('seats='+numSeats--);
-    request.send(myuid);
-
+    request.send(paramString);
 }
